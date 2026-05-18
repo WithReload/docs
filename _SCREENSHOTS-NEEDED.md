@@ -25,23 +25,23 @@ All screenshots should be:
 
 - **placeholder-hero** — Hero shot of the desktop app: channel sidebar visible, an active channel with a mixed human+agent thread, the Iris DM in the DM section. 16:9 wide crop.
 
-## `/get-started/install`
+## `/getting-started/install`
 
 - **install-download-page** — The `/download` page rendered on macOS with both **Download for Apple Silicon** and **Download for Intel** buttons visible. Show the auto-fire hint ("We've picked the Apple Silicon build for you.").
 - **install-dmg-drag** — macOS Finder showing the open Reload `.dmg` window with the drag-to-Applications arrow.
 
-## `/get-started/sign-in`
+## `/getting-started/sign-in`
 
 - **signin-hosted-ui** — The hosted sign-in screen with provider buttons (Google, GitHub, email).
 - **signin-desktop-handoff** — The "Opening Reload…" page with the manual "Open in Reload" CTA visible.
 
-## `/get-started/first-launch`
+## `/getting-started/first-launch`
 
 - **firstlaunch-setup** — FirstLaunchOnboarding setup mode: workspace name + first-channel rename + Enable Iris toggle + live preview pane on the right.
 - **firstlaunch-welcome** — Welcome screen with "Your workspace is ready" copy and the Connect your first agent CTA.
 - **firstlaunch-tour-step1** — First step of the Product Tour overlaying the desktop UI.
 
-## `/get-started/invite-teammates`
+## `/getting-started/invite-teammates`
 
 - **invite-promocard** — Sidebar PromoCard variant: "Invite your team" headline + "Invite members" CTA visible.
 - **invite-modal** — Invite member modal with email, role dropdown, and team multi-select shown.
@@ -94,7 +94,7 @@ All screenshots should be:
 
 ## `/agents/connecting`
 
-- **agents-directory** — Agent Directory chooser screen in the wizard showing Cursor, Claude Code, OpenClaude tiles.
+- **agents-directory** — Agent Directory chooser screen in the wizard showing Cursor, Claude Code, Openclaw tiles.
 
 ## `/agents/api-keys-and-scopes`
 

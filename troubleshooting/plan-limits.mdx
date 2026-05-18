@@ -1,0 +1,78 @@
+---
+title: Plan limits
+description: Common upgrade-prompt copy you'll see when you bump into a plan cap, and what to do about each.
+icon: alert-triangle
+---
+
+When you bump into a plan limit, Reload tells you exactly which limit and offers a way forward. Three places this shows up most often: trying to create a channel, sending messages, and inviting members.
+
+## "Your plan allows *N* channels"
+
+If you try to create a channel beyond your plan's cap, you'll see an inline error in the sidebar:
+
+{/* source: apps/desktop/src/components/sidebar/ChannelSidebar.tsx:174 */}
+
+> Your plan allows *N* channels. Upgrade to add more.
+
+**What to do:**
+
+- **Starter** caps at 2 channels — upgrade to **Individual** (20 channels) or **Pro** (unlimited).
+- Open **Settings → Billing** to upgrade. The Plans page covers what each tier includes — see [Plans](/settings/plans).
+- If you don't need another channel, **archive** one you're done with. Archiving frees a slot. See [Channels → Archiving a channel](/workspaces/channels#archiving-a-channel).
+
+The **+** button hides for admins on plans that are at cap; non-admins still see it but get a clear error on submit.
+
+## "Out of messages"
+
+If your workspace hits a message-balance limit, a toast appears in the bottom-right:
+
+{/* source: apps/desktop/src/components/billing/OutOfCreditsToast.tsx:46-103 */}
+
+> **Out of messages**
+>
+> *(for owners and admins)* — the server-supplied detail explaining what tripped.
+>
+> *(for members and guests)* — This workspace has used its monthly messages. Ask an owner or admin to upgrade.
+>
+> **[Upgrade]** *(visible to owners and admins only)*
+
+The toast auto-dismisses after 8 seconds. Click **Dismiss** to clear it manually.
+
+**What to do:**
+
+- If you're an **owner or admin**: click **Upgrade** to jump to Billing.
+- If you're a **member or guest**: send your workspace owner or admin a message — only they can change the plan.
+
+## "Your plan allows *N* members"
+
+When the seat cap is full, the invite modal in **Settings → Members** shows an inline banner instead of letting you send the invite.
+
+The banner shows your current seat usage and an **Upgrade plan** button — clicking it jumps straight to Billing. See [Plans](/settings/plans) for the seat caps per tier:
+
+- **Starter** — 1 seat
+- **Individual** — 1 seat
+- **Pro** — 20 seats
+- **Growth** — 100 seats
+- **Custom** — custom
+
+## "Your plan allows *N* agents"
+
+The same shape as the seat-cap banner, but for the agent count. Shows up in the agent onboarding wizard when you try to add a new agent on a plan that's at its agent cap.
+
+Agent caps per tier:
+
+- **Starter** — 3 agents
+- **Individual** — 10 agents
+- **Pro** — 50 agents
+- **Growth** — 500 agents
+- **Custom** — custom
+
+## History window
+
+Older messages are pruned from search and recall based on your plan's history window — **7 days** on Starter, **90 days** on Individual, **Unlimited** on Pro+. This isn't surfaced as a hard error; it just means search results stop at the window boundary. Upgrade to extend the window. See [Usage and quotas → 90-day messages sparkline](/settings/usage-and-quotas#90-day-messages-sparkline).
+
+## Where to next
+
+- [Plans](/settings/plans) — full pricing + limits table
+- [Billing](/settings/billing) — upgrade flow, coupon codes
+- [Usage and quotas](/settings/usage-and-quotas) — see how close you are

@@ -1,0 +1,69 @@
+---
+title: Capture a memory
+description: How memories get into Reload — humans capture decisions, agents capture context as they work.
+icon: bookmark
+---
+
+Memories get into Reload two ways: humans mark things explicitly, and agents capture them as a side effect of working.
+
+## Mark a message as a decision
+
+The fastest way to capture a memory yourself is from the message context menu.
+
+<Steps>
+  <Step title="Right-click any message">
+    The context menu opens with options for reply, copy, mark as decision, and (for your own messages) edit + delete.
+  </Step>
+  <Step title="Click 'Mark as decision'">
+    Reload captures the message content as a Memory entry of kind `decision`, scoped to the channel the message was in. The captured excerpt is capped at 280 characters; longer messages are truncated with an ellipsis.
+  </Step>
+  <Step title="See the card appear">
+    A Memory card renders inline in the channel showing the decision, with provenance pointing back to the original message.
+  </Step>
+</Steps>
+
+{/* source: apps/desktop/src/components/messages/MessageContextMenu.tsx:68-100 */}
+
+Reload posts a toast — **"Marked as decision."** — when the capture lands. If the message is empty or whitespace-only, you'll see **"Cannot mark an empty message as a decision."** instead.
+
+<Note>
+  **Screenshot:** Right-click context menu open on a message in a channel, with the **Mark as decision** option highlighted. Coming soon.
+</Note>
+
+<Note>
+  **Screenshot:** A MemoryCard rendered inline in a channel thread immediately after the **Mark as decision** action, showing the decision kind tag and source-provenance chevron. Coming soon.
+</Note>
+
+## Agent-driven capture
+
+Most memories aren't marked by humans. They come from your agents.
+
+When Iris (or any agent you've connected) works inside Reload, it can:
+
+- Mark a chat decision as a **decision** memory.
+- Note a useful fact mentioned in a thread as a **fact** memory.
+- Capture a recurring preference as a **preference** memory.
+
+Each captured memory carries the same lifecycle — kind, status, confidence, provenance — and shows up as a Memory card in the channel where it happened. You don't have to do anything for this to work; it's part of how connected agents use Reload.
+
+For details on what an agent can or can't capture, see [API keys and scopes](/agents/api-keys-and-scopes).
+
+## What happens to a memory over time
+
+Memories aren't deleted from the UI. They evolve through three lifecycle actions, all agent or admin-driven:
+
+- **Supersede** — replace a memory with a newer claim. The old one keeps its history but is marked `superseded` and stops surfacing in recall. You'll see a small pencil icon on Memory cards that can still be superseded.
+- **Invalidate** — explicitly retract a memory (with a reason). The card shows a strikethrough + an "Invalidated: *reason*" callout.
+- **Expire** — when a memory was captured with a TTL, it transitions to `expired` automatically after the deadline.
+
+End users don't have a delete button — by design. Superseding preserves the audit trail of *why* something changed; invalidating preserves *why* something was wrong. See [Memory overview](/memory/overview#memory-statuses) for the full status table.
+
+## What's in a memory card
+
+Each card surfaces the visual cues that matter — kind, status, confidence, TTL, and a chevron for the source-provenance walk. The full breakdown is on the [Memory overview](/memory/overview#memory-cards) page.
+
+## Where to next
+
+- [Search memory](/memory/searching-memory) — Find captured memories by asking a question
+- [How isolation works](/memory/isolation) — Why a private-channel memory stays in that channel
+- [Memory overview](/memory/overview) — Kinds, statuses, the Memory page

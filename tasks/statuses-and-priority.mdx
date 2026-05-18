@@ -1,0 +1,62 @@
+---
+title: Statuses and priority
+description: The 8 task statuses, the 4 priority levels, and what each one means visually.
+icon: circle-dot
+---
+
+Every task in Reload has a **status** (where the work is in its lifecycle) and a **priority** (how urgent it is). Both are visible at a glance from the list view and editable on the detail panel.
+
+## Statuses
+
+{/* source: apps/desktop/src/components/tasks/taskMeta.ts:21-64 */}
+
+| Status | What it means | Category |
+|---|---|---|
+| **Triage** | New, hasn't been looked at yet. | Todo |
+| **Backlog** | Looked at, not actively worked on. | Todo |
+| **Todo** | Ready to pick up. The default for new tasks. | Todo |
+| **In progress** | Actively being worked on. | In progress |
+| **Blocked** | Can't move forward — waiting on someone or something else. | In progress |
+| **In review** | Implementation done, awaiting review. | In review |
+| **Done** | Closed-complete. | Done |
+| **Cancelled** | Closed-without-completing. Rendered with a strikethrough. | Done |
+
+A small **colored dot** appears next to the status name in list rows; the same color tints the status chip. Categories (Todo / In progress / In review / Done) are coarse buckets for kanban-style grouping.
+
+`Done` and `Cancelled` can only be reached by **updating** an existing task — they aren't offered when you create one.
+
+<Note>
+  **Screenshot:** Status dropdown on the task detail panel showing all 8 statuses with their colored dots. Coming soon.
+</Note>
+
+## Priority
+
+{/* source: apps/desktop/src/components/tasks/taskMeta.ts:66-90 */}
+
+Five levels, displayed as a vertical priority bar (0 to 4 filled lines):
+
+| Priority | Bar | Color |
+|---|---|---|
+| **No priority** | — (dash) | Dim |
+| **Low** | ▏ (1) | Body |
+| **Medium** | ▎ (2) | Yellow |
+| **High** | ▍ (3) | Accent (blue) |
+| **Urgent** | ▌ (4) | Destructive (red) |
+
+The bar shows in the leftmost column of every list row so you can scan urgency at a glance — no need to open each task.
+
+## Auto-stamped timestamps
+
+Reload automatically records three lifecycle timestamps as the status changes:
+
+- **Started at** — when status first hits `In progress`.
+- **Completed at** — when status flips to `Done`.
+- **Cancelled at** — when status flips to `Cancelled`.
+
+You'll see these on the task detail panel. They're history, not editable — they reflect what actually happened.
+
+## Where to next
+
+- [Create a task](/tasks/creating-tasks) — single or bulk
+- [Relations and conflicts](/tasks/relations-and-conflicts) — block, related, duplicate, concurrent edits
+- [Tasks overview](/tasks/overview) — the Tasks page

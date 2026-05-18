@@ -1,0 +1,64 @@
+---
+title: Install and download issues
+description: What to do when the download page can't reach the manifest or macOS won't open the app on first launch.
+icon: download
+---
+
+The download flow is short and well-trodden, but the two things that can go wrong are:
+
+1. The download page can't reach the latest build manifest.
+2. macOS Gatekeeper hesitates on first launch.
+
+## "Downloads are temporarily unavailable"
+
+If the download page can't fetch the manifest, you'll see:
+
+{/* source: apps/web/src/app/download/page.tsx:153-172 */}
+
+> **Downloads are temporarily unavailable.**
+>
+> We couldn't reach the download manifest. Please try again in a few minutes, or email us if it persists.
+>
+> **[Email support@reload.chat]**
+
+**What to try:**
+
+1. Wait a few minutes and refresh. This is almost always transient.
+2. Check that your network can reach `app.reload.chat` and `download.reload.chat`.
+3. If you're behind a corporate firewall, your network admin may need to allowlist `*.reload.chat`.
+4. If it persists, click the email link in the fallback — we want to know if the download surface is down.
+
+## macOS Gatekeeper: "App can't be opened"
+
+On first launch, macOS sometimes warns about apps it doesn't recognise yet. If you see a dialog like *"Reload can't be opened because Apple cannot check it for malicious software"*:
+
+<Steps>
+  <Step title="Close the warning">
+    Hit **Cancel** on the dialog (don't click **Move to Trash**).
+  </Step>
+  <Step title="Right-click Reload in Applications">
+    Open **Applications**, find **Reload**, and right-click (or control-click) the icon.
+  </Step>
+  <Step title="Choose Open from the menu">
+    A new dialog appears with an **Open** button that bypasses the standard Gatekeeper check.
+  </Step>
+  <Step title="Click Open">
+    macOS remembers your choice — the next launch goes through normally.
+  </Step>
+</Steps>
+
+This is standard macOS guidance for apps installed outside the Mac App Store, not specific to Reload — Apple's notarization service occasionally takes a moment to recognise new builds even when they're signed.
+
+## Windows and Linux
+
+The Windows and Linux installers aren't out yet. From the download page, switch to **Windows** or **Linux** to see the *Coming soon* panel and click **Notify me when it's ready** to email us — we'll let you know the moment the installer ships.
+
+<Note>
+  **Screenshot:** macOS "App can't be opened because Apple cannot check it" dialog (only if you happen to have one handy — not blocking). Coming soon.
+</Note>
+
+## Where to next
+
+- [Install Reload](/get-started/install) — the standard install flow
+- [Sign-in issues](/troubleshooting/sign-in) — if sign-in is the actual blocker
+- [Contact support](/troubleshooting/contact-support) — talk to a human

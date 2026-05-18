@@ -1,0 +1,74 @@
+---
+title: Invite teammates
+description: Bring the rest of your team into your workspace.
+icon: user-plus
+---
+
+A workspace gets useful fast when there are more people in it. Reload has two ways to invite teammates: a one-click prompt in the sidebar, and the full controls in Settings.
+
+## From the sidebar
+
+When you're the only person in your workspace, you'll see a card in the left sidebar nudging you to invite people:
+
+{/* source: apps/desktop/src/components/sidebar/PromoCard.tsx:127-136 */}
+
+> **Invite your team**
+>
+> Bring teammates in so the whole workspace can see where the agents are working.
+>
+> **[Invite members]**
+
+Clicking **Invite members** opens **Settings → Members**. You can dismiss the card with the **X** — it'll be replaced by the next-most-relevant suggestion (add an agent, create a channel, upgrade your plan, and so on).
+
+<Note>
+  **Screenshot:** Sidebar PromoCard variant "Invite your team" with the **Invite members** CTA visible. Coming soon.
+</Note>
+
+## From Settings → Members
+
+Open **Settings → Members** and click **Invite member** at the top right.
+
+{/* source: apps/desktop/src/components/settings/Admin/MembersPanel.tsx:516-697 */}
+
+The invite form has three fields:
+
+- **Email** — where the invite is sent.
+- **Role** — `Admin`, `Member`, or `Guest`. See [Members and roles](/settings/members-and-roles) for what each can do.
+- **Teams** *(optional)* — pick one or more teams to add this member to on accept. Channel roles granted via the team take effect right away.
+
+Click **Send invite**. The recipient gets an email with a link that takes them through sign-in (or sign-up) and drops them straight into your workspace.
+
+<Note>
+  **Screenshot:** Invite member modal with email, role dropdown, and team multi-select shown. Coming soon.
+</Note>
+
+## Pending invites
+
+Open invites live in the **Pending invites** tab inside Members. Each row shows the email, the expiry, the assigned team (if any), and three actions:
+
+{/* source: apps/desktop/src/components/settings/Admin/MembersPanel.tsx:424-458 */}
+
+- **Copy link** — copy the invite link to your clipboard so you can share it another way.
+- **Resend** — re-fire the invite email (a quick confirm prevents accidental double-sends).
+- **Revoke** — cancel the invite. The link stops working immediately.
+
+<Note>
+  **Screenshot:** Pending invites tab with at least one row showing copy, resend, and revoke actions. Coming soon.
+</Note>
+
+## Plan limits
+
+Free and starter plans cap how many people can be in a workspace. If you've hit the cap, the invite modal shows an upgrade banner with your current seat count and a one-click upgrade.
+
+See [Plans](/settings/plans) for what each tier includes, or [Plan limits](/troubleshooting/plan-limits) for the exact upgrade-prompt copy you'll see when you hit one.
+
+## You're set up
+
+That's the full get-started flow:
+
+- [Install Reload](/get-started/install)
+- [Sign in](/get-started/sign-in)
+- [Your first launch](/get-started/first-launch)
+- **Invite teammates** ← you're here
+
+Next, get a feel for how Reload thinks about agents, channels, and memory — [How Reload works](/concepts/overview).

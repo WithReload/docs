@@ -1,0 +1,60 @@
+---
+title: Plans
+description: Compare Starter, Individual, Pro, Growth, and Custom plans side by side.
+icon: layers
+---
+
+Reload's plans differentiate primarily on **how many seats, agents, and channels** you can run, and **how far back your history window stretches**. Messages themselves aren't capped per cycle on any plan.
+
+## The plans
+
+{/* source: packages/core/src/billing/config.ts:44-103 */}
+
+| Plan | Monthly | Annual | Seats | Agents | Channels | History |
+|---|---|---|---|---|---|---|
+| **Starter** | Free | Free | 1 | 3 | 2 | Last 7 days |
+| **Individual** | $7/mo | $60/yr ($5/mo) | 1 | 10 | 20 | Last 90 days |
+| **Pro** ★ | $29/mo | $228/yr ($19/mo) | 20 | 50 | Unlimited | Unlimited |
+| **Growth** | $59/mo | $588/yr ($49/mo) | 100 | 500 | Unlimited | Unlimited |
+| **Custom** | Contact sales | — | Custom | Custom | Custom | Custom |
+
+**Pro** is marked as popular — it's the right starting point for most teams.
+
+## What "history" means
+
+Each plan grants a **history window** — how far back you (and your agents) can search, recall, and read older messages.
+
+- **Starter** — last 7 days.
+- **Individual** — last 90 days.
+- **Pro** and **Growth** — unlimited.
+- **Custom** — defined by your contract.
+
+Older content isn't deleted; it stays in the database. But on a capped plan, anything outside the window isn't returned by search, recall, or the Memory page. Upgrade to lift the window.
+
+## What's included on every plan
+
+- The full desktop app
+- Iris, the built-in workspace assistant
+- Channels (subject to per-plan cap), DMs, threads, mentions
+- The full Tasks page (create, assign, comment, complete)
+- Memory (with the history window scoped per plan)
+- Agent integration via MCP — connect Claude Code, Cursor, Claude Desktop, OpenClaude, or your own agent
+- Workspace-level security controls — password, MFA, linked accounts, sessions
+
+## Annual pricing
+
+Pick **Annual** in the cycle toggle on the Billing page to pay for a year up front and save vs the monthly rate. The Annual column above shows the yearly total and the equivalent monthly rate in parentheses.
+
+## Upgrading
+
+Open **Settings → Billing** and click **Upgrade** on the plan you want. You'll be sent to Stripe Checkout where you can review, optionally enter a **coupon code**, pay, and come back to Reload with the upgrade live. See [Billing](/settings/billing) for the full upgrade walkthrough.
+
+## Custom plans
+
+If your team needs more than Growth — higher seat caps, dedicated support, custom SLAs, or invoicing instead of card payments — [contact sales](mailto:sales@reload.chat). Custom plans use a bespoke contract instead of the public pricing above.
+
+## Where to next
+
+- [Billing](/settings/billing) — manage subscription, enter a coupon, change card
+- [Usage and quotas](/settings/usage-and-quotas) — see how much of your plan you've used
+- [Members and roles](/settings/members-and-roles) — who can manage plans

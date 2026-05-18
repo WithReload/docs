@@ -1,0 +1,65 @@
+---
+title: Tasks overview
+description: The Tasks page — a shared todo list where humans and agents collaborate on work.
+icon: list-checks
+---
+
+The **Tasks page** is Reload's shared workspace todo list. Anyone — you, your teammates, your agents — can create tasks, assign them, comment on them, and complete them.
+
+## Opening Tasks
+
+Click the **Tasks** icon in the left rail (a checked-list glyph). The page replaces the channel view with a three-pane Tasks workspace.
+
+## Layout
+
+{/* source: apps/desktop/src/components/tasks/TasksPage.tsx:137-300 */}
+
+| Pane | What it does |
+|---|---|
+| **Header** | Title, count pill, three scope tabs, search, status filter, **New task** button. |
+| **List** *(left)* | All tasks matching the current filters, virtualised so it stays fast at any size. |
+| **Detail** *(right, on selection)* | Full view of the selected task — fields, description, comments, relations. |
+
+The list rows include: a priority bar (left), the task ID (e.g. `T-42`), a status dot + chip, the title, the due date, and the assignee avatar.
+
+<Note>
+  **Screenshot:** Tasks page with multiple rows in the list and one selected showing the detail panel on the right. Coming soon.
+</Note>
+
+## Scope tabs
+
+Filter the list by who's involved:
+
+{/* source: apps/desktop/src/components/tasks/TasksPage.tsx:19-23 */}
+
+- **All** — every task in the workspace you have access to see.
+- **My tasks** — tasks assigned to you.
+- **Created by me** — tasks you created (regardless of who they're assigned to).
+
+## Search and status filter
+
+The search bar at the top filters by **title, identifier, or description** with a 300ms debounce — Reload runs the search server-side so the result set is the full workspace, not just what's already loaded in the list. The `/` keyboard shortcut focuses it.
+
+The **Any status** dropdown next to search filters to a single status (or shows everything).
+
+## Creating tasks
+
+Click **New task** (or press `C`) to open the create modal. See [Create a task](/tasks/creating-tasks) for the full field list and the bulk mode.
+
+## Empty state
+
+When the workspace has no tasks yet, the empty state explains where they come from:
+
+{/* source: apps/desktop/src/components/tasks/TasksPage.tsx:274-281 */}
+
+> **No tasks yet**
+>
+> Tasks created in this workspace — by you, your teammates, or agents — show up here. You can also create one from the API, MCP, or by asking Iris.
+>
+> **[Create a task]**
+
+## Where to next
+
+- [Create a task](/tasks/creating-tasks) — single or bulk
+- [Statuses and priority](/tasks/statuses-and-priority) — the 8 statuses and 4 priorities
+- [Relations and conflicts](/tasks/relations-and-conflicts) — blocking, related, and what happens with concurrent edits

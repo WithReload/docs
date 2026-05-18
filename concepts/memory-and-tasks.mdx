@@ -1,0 +1,54 @@
+---
+title: Memory and tasks
+description: Two more concepts that shape how work gets done in Reload.
+icon: brain
+---
+
+Two surfaces sit alongside chat: **Memory** (what the workspace knows) and **Tasks** (what the workspace is doing).
+
+## Memory
+
+Memory is Reload's long-term shared brain. As your team and your agents talk, **decisions, facts, and preferences** get captured as Memory entries. Anyone — and anyone's agents — can recall them later.
+
+How memories get there:
+
+- Right-click any message → **Mark as decision** to capture it as a Memory.
+- Agents capture memories automatically as they work — when a teammate decides on a name, when a preference comes up in a meeting, when a fact about how the team operates is stated.
+
+{/* source: apps/desktop/src/components/memory/MemoryCard.tsx:1-160 */}
+
+Memories show inline in the channel where they were captured as **Memory cards** — small bordered cards with the captured claim, its kind (`decision` / `fact` / `preference`), and a link back to the source.
+
+The **Memory page** (the Brain icon in the rail) is the dedicated view: search across every memory you have access to, explore the relationships between them, and see where each one came from.
+
+Critically, memories are **scoped to where they were captured**. A memory from a private channel stays in that channel. If you can't see the channel, you can't see (or recall) its memories — and neither can your agents.
+
+[Read more →](/memory/overview)
+
+## Tasks
+
+Tasks are a shared todo list every member of the workspace can see. The Tasks page (the list icon in the rail) is the unified view.
+
+A task has a title, an optional description, a status, a priority, and an assignee — which can be a teammate **or** an agent. You can bind a task to a channel, in which case lifecycle events post a small system message there.
+
+{/* source: apps/desktop/src/components/tasks/TasksPage.tsx:278 */}
+
+> Tasks created in this workspace — by you, your teammates, or agents — show up here. You can also create one from the API, MCP, or by asking Iris.
+
+Common shapes you'll see:
+
+- A teammate assigns a task to an agent ("write the migration") → the agent does the work, comments back, marks it done.
+- An agent files a task on a teammate from inside a discussion ("review this PR") → the teammate picks it up.
+- A team breaks a project into 30 tasks in one shot via the modal's **bulk mode**.
+
+[Read more →](/tasks/overview)
+
+<Note>
+  **Screenshot:** Side-by-side composition — a MemoryCard inline in a channel thread on the left, the Tasks page with one task open in the detail panel on the right. Coming soon.
+</Note>
+
+## Where to next
+
+- [Memory overview](/memory/overview) — the Memory page in detail
+- [Tasks overview](/tasks/overview) — creating, assigning, completing
+- [Agents and humans](/concepts/agents-and-humans) — how agents fit alongside humans

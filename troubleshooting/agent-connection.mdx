@@ -1,0 +1,69 @@
+---
+title: Agent connection issues
+description: Verify a connected agent, recover from a lost API key, and read the common connection-failure copy.
+icon: unplug
+---
+
+If your agent isn't reaching Reload — no messages going out, no responses coming back — start with the **Test connection** panel inside the agent's settings. It mints a one-shot token and tells you the moment the agent calls back.
+
+## Test connection
+
+Open the agent's settings panel and click **Start test**. You'll see:
+
+{/* source: apps/desktop/src/components/agents/ConnectionTestPanel.tsx:202-280 */}
+
+> Generates a one-shot token, then asks `@your-agent` to call the `verify-connection` MCP tool with it. We'll know the agent is wired correctly the moment the call lands.
+
+The panel cycles through four states:
+
+| State | What you see | What it means |
+|---|---|---|
+| **Idle** | The **Start test** button. | Ready to begin. |
+| **Awaiting** | A one-shot token, a copy-prompt button, and a countdown (≈10 minutes). | Reload is waiting for the agent to call back. |
+| **Verified** | A green check with "Connection verified." | The agent reached Reload via MCP and echoed the token. You're good. |
+| **Expired** | An orange warning + troubleshooting checklist. | The token TTL elapsed without a verification call. |
+
+<Note>
+  **Screenshot:** Connection test panel in the **Awaiting** state showing the verification token + countdown. Coming soon.
+</Note>
+
+<Note>
+  **Screenshot:** Connection test panel in the green-check **Verified** state. Coming soon.
+</Note>
+
+## When verification expires
+
+If the token expires without a call, the panel surfaces a short checklist:
+
+{/* source: apps/desktop/src/components/agents/ConnectionTestPanel.tsx:303-327 */}
+
+- Did the agent reload its MCP config after you pasted the snippet?
+- Is the API key in the snippet the one you generated for this agent?
+- Can the agent reach `https://mcp.reload.chat/mcp` from where it's running?
+
+Run through each, then click **Try again** to mint a fresh token.
+
+## API key issues
+
+Two common API-key states will block an agent immediately, with messages along these lines:
+
+- **Invalid API key.** The key Reload received doesn't match any active key for this workspace. *Action:* check that the key in your agent's config starts with `rl_` and matches the prefix shown on the Keys tab.
+- **Revoked key.** The key was valid but has been disabled. *Action:* open the agent's settings, go to **Keys**, click **Rotate key**, paste the new key into your agent's MCP config.
+
+If you've lost the original key entirely, rotate to a new one — keys are show-once, so you'll need a fresh one rather than trying to recover the old. See [API keys and scopes](/agents/api-keys-and-scopes#managing-keys-from-agent-settings) for the rotate flow.
+
+## Network reachability
+
+If your agent runs in a restricted environment (corporate network, CI runner, behind a strict firewall), it needs outbound access to:
+
+```
+https://mcp.reload.chat/mcp
+```
+
+over HTTPS. Allow that host on the way out and the rest follows.
+
+## Where to next
+
+- [Connect an agent](/agents/connecting) — the standard wiring per client
+- [API keys and scopes](/agents/api-keys-and-scopes) — rotate, revoke, narrow
+- [Realtime and network](/troubleshooting/realtime-and-network) — when the desktop app itself is offline

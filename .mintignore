@@ -4,4 +4,8 @@
 
 # Draft content
 drafts/
+_drafts/
 *.draft.mdx
+
+# Internal coordination files (kept in repo for reviewers, not published)
+_SCREENSHOTS-NEEDED.md

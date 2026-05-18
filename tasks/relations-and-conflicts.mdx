@@ -1,0 +1,74 @@
+---
+title: Relations and conflicts
+description: Link tasks together with blocking / related / duplicate relations — and what happens when two people edit at once.
+icon: git-branch
+---
+
+Real work has structure: one task blocks another, two are basically the same, a third is just *related*. Reload's task **relations** capture those edges. And when two people (or an agent and a person) edit the same task at the same time, Reload's **conflict modal** lets you resolve the difference field-by-field.
+
+## Relations
+
+{/* source: apps/desktop/src/components/tasks/TaskRelationsSection.tsx */}
+
+Open a task and scroll to the **Relations** section in the detail panel. Four relation kinds:
+
+| Relation | What it means |
+|---|---|
+| **Blocks** | This task is preventing another task from moving forward. |
+| **Blocked by** | The inverse view — this task is waiting on another. |
+| **Related** | Same area, same theme, but no blocking dependency. |
+| **Duplicate** | This task and another describe the same work. |
+
+Blocks and Blocked-by are surfaced first because they gate when work can happen.
+
+### Adding a relation
+
+Click **Add relation** in the section. You'll pick:
+
+- The relation kind — **Blocks**, **Related**, or **Duplicate**.
+- The other task — type the identifier (e.g. `T-42`) or paste a task id.
+
+Note: there's no add-form for **Blocked by** directly. To express "this task is blocked by T-42", open T-42 and add a **Blocks** relation pointing at the current task. The reverse view appears automatically on the originally-blocked task.
+
+A self-reference check stops you from relating a task to itself.
+
+### Removing a relation
+
+Each relation row has a delete button. Removing a relation also removes its inverse view on the other task — same edge, both sides.
+
+<Note>
+  **Screenshot:** Task detail panel with a "Blocks" relation set, showing the related task identifier. Coming soon.
+</Note>
+
+## Concurrent edits — the Conflict modal
+
+When two people (or an agent and a person) edit the same task at the same time, Reload won't silently overwrite either change. Instead, the second save lands in the **Conflict modal**.
+
+{/* source: apps/desktop/src/components/tasks/TaskConflictModal.tsx */}
+
+The modal shows two columns side by side:
+
+- **Yours** — what you tried to save.
+- **Theirs** — what the other actor saved while you were editing.
+
+You can pick **mine** or **theirs** for each field that diverged (title, description, status, priority, assignee, due date, channel binding). Three exits:
+
+- **Keep theirs** — discard your edit; close the modal.
+- **Keep mine** — re-save with your selection. If another conflict landed in the meantime, the modal reopens with the new state.
+- **Cancel** — same as Keep theirs, but explicit.
+
+It's rare in practice — task edits are fast — but the modal guarantees nothing gets silently lost.
+
+<Note>
+  **Screenshot:** Task conflict modal open with two side-by-side columns (Yours / Theirs) showing differences across multiple fields. Coming soon.
+</Note>
+
+## Why this matters for agents
+
+Agents update tasks the same way humans do — through the API or MCP. When an agent updates a task you also have open and are editing, the agent's update can land first, triggering the conflict modal for you (or vice versa). That's the safety net: even when humans and agents race on the same task, the resolution is explicit, not silent.
+
+## Where to next
+
+- [Statuses and priority](/tasks/statuses-and-priority) — what each value means
+- [Create a task](/tasks/creating-tasks) — single or bulk
+- [Tasks overview](/tasks/overview) — the Tasks page itself

@@ -1,0 +1,72 @@
+---
+title: Teams
+description: Group workspace members into teams to grant channel roles and use @team mentions.
+icon: users-round
+---
+
+A **team** is a subgroup of your workspace members. Teams are how you grant the same channel role to a group of people in one go and how you `@team` the right people without spelling out individual `@handles`.
+
+> {/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:130-132 */}
+> Group workspace members into teams for channel role grants and per-team mentions.
+
+## Who can manage teams
+
+Open **Settings → Teams**.
+
+- **Owners and admins** can create teams, rename them, add or remove members, and delete teams.
+- Any **member** can view the teams list and a team's members.
+
+Teams appear with their name, member count, `@slug`, and an optional description.
+
+<Note>
+  **Screenshot:** Teams tab with at least one team open showing its members list and lead/member badges. Coming soon.
+</Note>
+
+## Creating a team
+
+Click **+ New team** at the top right. The create form has two fields:
+
+{/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:347-360 */}
+
+- **Name** — required, e.g. *Engineering*.
+- **Description** *(optional)* — what this team owns.
+
+The `@slug` is auto-generated from the name on the server side, so you don't have to think about kebab-case at create time. Click **Create team** and you'll drop into the team panel to add members.
+
+## Adding members
+
+In the team panel, click **Add member**. The picker lists every human and agent in your workspace who isn't already on the team, alphabetised by display name. Pick one and they're added as a **member** by default.
+
+{/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:560-731 */}
+
+Each row shows:
+
+- The member's display name and `@handle`
+- A type indicator (`human` / `agent`)
+- A role chip — **member** (default) or **lead**
+
+Use the per-row dropdown to promote someone to **lead**, or the **X** button to remove them.
+
+## Renaming or deleting a team
+
+In the team panel:
+
+- Edit **Name** or **Description** at the top, then click **Save changes**.
+- Click the red **Delete** button on the team's row in the main list to remove it.
+
+Deleting a team is permanent. The confirm dialog will warn you:
+
+> {/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:284 */}
+> Members lose their team affiliation immediately. Channel roles granted via this team are revoked. This cannot be undone.
+
+## How teams work with channels
+
+When you add a member or team to a channel, you assign one of the channel roles (`admin`, `poster`, or `reader`). Adding a *team* to a channel grants the role to every member of that team at once — and when you add new people to the team later, they inherit the same channel grant automatically.
+
+See [Channels](/workspaces/channels) for the full channel-role reference.
+
+## Where to next
+
+- [Channels](/workspaces/channels) — channel-role grants in detail
+- [Members](/workspaces/members) — workspace-wide member directory
+- [Members and roles](/settings/members-and-roles) — workspace roles (Owner / Admin / Member / Guest)

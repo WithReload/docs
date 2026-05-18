@@ -1,0 +1,83 @@
+---
+title: Sign-in issues
+description: Common sign-in errors, what they mean, and what to do.
+icon: key-round
+---
+
+If sign-in doesn't go smoothly, you'll usually land on one of two places: the **callback** page (if you got most of the way through) or the dedicated **error** page (if the provider redirected you out of the happy path). Both give you a **Try again** button as the first step.
+
+## "Sign-in didn't complete"
+
+You'll see this on the auth callback page:
+
+{/* source: apps/web/src/app/auth/callback/page.tsx:61 */}
+
+> **Sign-in failed.**
+>
+> Sign-in didn't complete. Please try again.
+>
+> **[Try again]**
+
+This is the generic catch — for an upstream provider error, a missing authorization code, or a code-exchange failure. The detail is intentionally generic.
+
+**What to try:**
+
+1. Click **Try again**. The button forces a fresh sign-in (rather than reusing a stale session), which clears most transient issues.
+2. If you signed in with a corporate Google or Microsoft account, make sure the right account is selected in the provider's screen.
+3. If you're using a password manager, let it complete the autofill before you hit submit.
+4. Clear your browser's cookies for `app.reload.chat` and try once more.
+
+If it still fails, [email support](/troubleshooting/contact-support) with what you typed and the time it happened so we can correlate logs.
+
+## "Sign-in failed" (error page)
+
+If the provider redirected you to `/auth/error` instead of the callback, you'll see:
+
+{/* source: apps/web/src/app/auth/error/page.tsx:19-29 */}
+
+> **Sign-in failed**
+>
+> We couldn't complete the sign-in.
+>
+> Reason: *<reason>* · *<detail>*
+>
+> **[Try again]**
+
+The **Reason** and **detail** lines are diagnostic — they help us figure out what happened if you share them with support. Click **Try again** to restart from `/auth/start`.
+
+## Invite link doesn't work
+
+If you arrived via an invite email and the link didn't drop you into the workspace, you'll be routed to the invite preview page with one of these error codes in the URL:
+
+{/* source: apps/web/src/app/auth/callback/page.tsx:338-346 */}
+
+| Error code | What it means | What to do |
+|---|---|---|
+| **expired_or_revoked** | The invite has expired or someone revoked it. | Ask the person who invited you to send a fresh invite. |
+| **email_mismatch** | The invite was sent to a different email than the one you signed in with. | Sign out, sign back in with the email the invite was sent to (or ask for a new invite to your preferred email). |
+| **not_found** | The invite code isn't valid. | Ask for a fresh invite — the link may be malformed. |
+| **unknown** | Something else went wrong. | [Email support](/troubleshooting/contact-support). |
+
+## Desktop sign-in: "Opening Reload…" stuck
+
+If you signed in via the browser and the desktop app didn't open, the page shows a manual fallback:
+
+{/* source: apps/web/src/app/auth/callback/page.tsx:209-232 */}
+
+> **Opening Reload…**
+>
+> You should be back in the desktop app in a moment. If nothing happened, click below.
+>
+> **[Open in Reload]**
+
+Click **Open in Reload** to manually trigger the deep-link. If that still doesn't open the app:
+
+- Make sure the desktop app is installed and not blocked by macOS (try opening it from Applications first).
+- Check that no other browser tab is intercepting `reload://` links.
+- As a last resort, sign out everywhere ([Sessions](/settings/security-and-sessions)) and start fresh.
+
+## Where to next
+
+- [Sign in](/get-started/sign-in) — how the flow is supposed to work
+- [Install Reload](/get-started/install) — make sure the desktop app is set up
+- [Contact support](/troubleshooting/contact-support) — get a human at Reload involved

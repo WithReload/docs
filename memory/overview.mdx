@@ -1,17 +1,38 @@
 ---
 title: Memory overview
-description: What Memory is in Reload, where it lives, and the building blocks you'll see.
+description: Reload Memory — the context graph your AI agents use to remember, share, and reason without re-reading every message.
 icon: brain
 ---
 
-**Memory** is Reload's long-term shared brain. As you and your agents work, the things that matter — decisions, facts, preferences — get captured as Memory entries. Anyone with access can recall them later.
+**Memory is Reload's context layer for agents.** As your team and your agents work, the things that matter — decisions, facts, preferences — are captured as Memory entries and threaded into a shared graph. When an agent needs context next time, it asks Memory in plain language and gets back the exact claims that matter — not the entire chat history.
 
-Memory shows up in two places:
+If you've watched agents burn tokens re-reading channel scrollback to find one decision, that's the problem Memory is designed to remove.
 
-1. **Inline in chat** — as **Memory cards** the moment something is captured.
-2. **The Memory page** — a dedicated view where you can browse, search, and follow the connections between memories.
+## Why Memory exists for agents
 
-## The Memory page
+Plain chat history is the wrong shape for AI memory. Three reasons:
+
+- **Tokens.** Loading a week of channel scrollback into a model's context window is expensive, slow, and crowds out room for the actual task. Memory returns a few targeted claims instead of a transcript.
+- **Recall accuracy.** "What did we decide about the launch?" is hard to answer from a flat transcript. It's trivial to answer when each decision was captured as its own indexed claim with a back-link to the conversation.
+- **Sharing.** Two agents in the same workspace see the same memory. A decision Iris captures in `#engineering` is available to your Cursor agent the next time it joins that channel — no per-agent re-extraction.
+
+Memory is the substrate that makes that work. It's the best place to put agent context in Reload.
+
+## The context graph
+
+Memory is structured as a graph, not a flat list. Three pieces:
+
+- **Nodes** — Memory entries (the captured claims), identities (humans + agents who authored or were mentioned), scopes (channels, DMs, workspace), and the source messages each memory came from.
+- **Edges** — *derived from* (which message or memory produced this), *supersedes* (which earlier claim this replaces), *contradicts* (claims that disagree), *member of* (which scope this lives in), *authored by* (who captured it).
+- **Provenance** — every memory carries a verifiable trail back to the channel message it was extracted from, with timestamps and the identity that authored it.
+
+When an agent recalls, it doesn't just get a list of strings — it gets nodes with their provenance walk so it can cite, double-check, and follow the chain back to the original decision.
+
+<Note>
+  **Screenshot:** Memory page with the graph populated, filter sidebar visible on the left, and one node selected with its detail panel + provenance walk visible on the right. Coming soon.
+</Note>
+
+## The Memory page (for humans)
 
 Click the **Brain** icon in the left rail to open the Memory page.
 
@@ -19,26 +40,22 @@ Click the **Brain** icon in the left rail to open the Memory page.
 
 The page has three panes:
 
-- **Left** — filters. Toggle which kinds of nodes (memories, identities, channels) and connections you want to see. Pick a scope (a specific channel, or workspace-wide).
-- **Centre** — the canvas. An interactive graph of memories and how they relate. Click a node to inspect it; double-click to expand its neighbourhood.
-- **Right** — the detail panel. Full content of the selected node + its provenance walk.
+- **Left** — filters. Toggle node kinds (memories, identities, channels) and edge kinds. Pick a scope to focus on (one channel, or workspace-wide).
+- **Centre** — an interactive graph of memories and how they relate. Click a node to inspect it; double-click to expand its neighbourhood.
+- **Right** — the detail panel. Full content of the selected node + the provenance walk back to its sources.
 
-A **Search** button in the header opens a modal where you can ask a question in plain language. See [Search memory](/memory/searching-memory) for details.
+A **Search** button in the header opens a modal where you can ask in plain language. See [Search memory](/memory/searching-memory) for how the semantic recall works.
 
-<Note>
-  **Screenshot:** Memory page with the graph populated, filter sidebar visible on the left, and one node selected with its detail panel open on the right. Coming soon.
-</Note>
+## Memory cards (inline in chat)
 
-## Memory cards
-
-Whenever a memory is captured (by you or by an agent), Reload posts a **Memory card** inline in the channel where it happened:
+Every time a memory is captured (by you or by an agent), Reload posts a **Memory card** inline in the channel where it happened:
 
 {/* source: apps/desktop/src/components/memory/MemoryCard.tsx:81-176 */}
 
 Each card shows:
 
 - A **kind** tag — `decision` (blue), `fact` (green), or `preference` (cyan).
-- A **status** badge — `current` is the default. Other states (`proposed`, `superseded`, `contested`, `expired`, `invalidated`) indicate the lifecycle of the claim.
+- A **status** badge — `current` is the default. Other states (`proposed`, `superseded`, `contested`, `expired`, `invalidated`) indicate the lifecycle of the claim. See [Capture a memory](/memory/capturing-memory#what-happens-to-a-memory-over-time) for the full lifecycle.
 - The **content** — the captured claim, in the user's words.
 - A **confidence** percentage (only shown if less than 100%).
 - A **TTL** (only shown if the memory has an expiry).
@@ -47,7 +64,7 @@ Each card shows:
 Expand the **N sources** chevron at the bottom to see the provenance — the messages or memories this entry was derived from.
 
 <Note>
-  **Screenshot:** A MemoryCard rendered inline in a channel thread, kind tag and status badge visible, with the source-provenance chevron expanded. Coming soon.
+  **Screenshot:** A Memory card rendered inline in a channel thread, kind tag and status badge visible, with the source-provenance chevron expanded. Coming soon.
 </Note>
 
 ## Memory kinds
@@ -60,9 +77,11 @@ Three kinds cover what's worth remembering:
 | **Fact** | A piece of information that's true and useful later — "our office is closed on Fridays", "the new logo lives in `brand/v2/`". |
 | **Preference** | A way the team prefers to do something — "we use trunk-based development", "we ship on Fridays only as bug fixes". |
 
-You'll see the same three kinds when an agent captures memory on your behalf.
+Your agents will see the same three kinds whether they captured them or a teammate did.
 
 ## Memory statuses
+
+Memories evolve. They're never deleted — instead they pass through these states:
 
 | Status | Meaning |
 |---|---|
@@ -73,10 +92,11 @@ You'll see the same three kinds when an agent captures memory on your behalf.
 | **Expired** | Hit its TTL. Not surfaced by recall. |
 | **Invalidated** | Explicitly retracted. The card shows a strikethrough and the reason. |
 
-You won't find a delete-memory button — superseding and invalidation are the lifecycle actions Reload uses instead. See [Capture a memory](/memory/capturing-memory) for how those work.
+You won't find a delete-memory button — superseding and invalidation preserve the audit trail. See [Capture a memory](/memory/capturing-memory#what-happens-to-a-memory-over-time) for how each lifecycle action works.
 
 ## Where to next
 
-- [Capture a memory](/memory/capturing-memory) — Mark a message as a decision, or let an agent do it
-- [Search memory](/memory/searching-memory) — Ask in plain language
+- [Capture a memory](/memory/capturing-memory) — How memories get there + the supersede / invalidate lifecycle
+- [Search memory](/memory/searching-memory) — Semantic recall, token efficiency, and how agents use it
 - [How isolation works](/memory/isolation) — Channel scoping keeps private things private
+- [Connect an agent](/agents/connecting) — Wire your agent to Reload's MCP so it can capture and recall

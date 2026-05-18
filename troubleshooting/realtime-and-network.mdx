@@ -15,7 +15,7 @@ You'll see one of three labels (and nothing at all when everything's healthy):
 | Label | What it means | What to do |
 |---|---|---|
 | **Connecting realtime…** | The app is establishing a fresh connection. Shown only after a 2-second grace so it doesn't flash on cold start. | Nothing — give it a moment. |
-| **Reconnecting in *X*s (attempt *N*)** | The connection dropped and the app is retrying with backoff. The countdown is live; the attempt number bumps every retry. | Nothing — Reload reconnects on its own. |
+| **Reconnecting in *X*s (attempt *N*)** | The connection dropped and the app is retrying with backoff. The countdown is live; the attempt number bumps every retry. When the next retry is moments away, this simplifies to **Reconnecting (attempt *N*)…** | Nothing — Reload reconnects on its own. |
 | **Realtime offline** | The app has given up reconnecting for now. | Check your internet. The pill goes away the moment the network is back. |
 
 <Note>

@@ -1,12 +1,40 @@
 ---
 title: Search memory
-description: Ask Reload's memory in plain language and follow the provenance back to the source.
+description: How agents (and humans) ask Reload's memory in plain language — and why this beats stuffing a transcript into the prompt.
 icon: search
 ---
 
-The **Search** affordance on the Memory page is the fastest way to pull a specific memory back out — you type a question, Reload returns the most relevant memories with their provenance.
+The **Search** affordance on the Memory page is the fastest way to pull a specific memory back out. You type a question, Reload returns the most relevant memories with their provenance.
 
-## How search works
+Under the hood, this is the same recall surface your **agents** use every time they need context. Understanding how it works — and why it matters for token cost — is the difference between an agent that re-reads scrollback on every turn and one that asks for the exact decision it needs.
+
+## Semantic recall, not keyword search
+
+Reload's memory is searched by **meaning, not by string match**. Each memory is indexed alongside a vector representation of its claim, so when you (or an agent) ask a question, Reload returns the memories whose meaning is closest — even if the exact words don't appear in either.
+
+That means:
+
+- *"What did we decide about the launch date?"* finds *"We're shipping on Tuesday, April 9th"* even though the words "launch" and "decide" never appear in the captured memory.
+- *"How does the team prefer to test?"* finds *"We use trunk-based development with mandatory code review"*.
+- *"Where do brand assets live?"* finds *"The new logo lives in `brand/v2/`"*.
+
+Every hit comes back with **its provenance** — the messages or earlier memories it was derived from — so you can verify the source without trusting a black box.
+
+## Why agents save tokens with recall
+
+Without Memory, an agent that needs to know "what did we decide" has two options:
+
+1. Re-read the entire channel scrollback every turn and hope it spots the decision (expensive, slow, error-prone, eats the context window).
+2. Have you paste the decision into the prompt by hand (defeats the purpose of the agent).
+
+With Memory, the agent runs one recall query, gets back the three most relevant claims with provenance, and proceeds. The token cost drops from *"the last 200 messages"* to *"three short claims plus their source links"* — usually 10–100× less context for the same answer.
+
+That's the practical reason every agent connected to Reload should be using Memory:
+
+- **Iris** uses it on every turn it answers — that's why it can summarise a week of channel activity without ingesting the whole thread.
+- **Your connected agents** (Claude Code, Cursor, Codex, Devin, Openclaw, Hermes, your own) get the same recall surface via MCP. The moment they're a member of a channel, they can ask Memory the same questions a human can.
+
+## How search works in the UI
 
 <Steps>
   <Step title="Open the Memory page">
@@ -41,25 +69,33 @@ Searches that work well:
 - *"What's our preference on testing strategy?"*
 - *"Where do we keep the brand assets?"*
 - *"Who said we'd skip the migration?"*
+- *"What did Alice push back on last week?"*
 
-Searches are full sentences, not keywords. The longer, more specific the question, the better the match.
+Full sentences beat keywords. The more specific the question, the tighter the match.
 
-## What you can see
+## What you (and your agents) can see
 
-Search respects what you have access to. You'll only see memories from:
+Search respects what the caller has access to. You'll only see memories from:
 
 - Channels you're a member of
 - DMs you're part of
 - The Iris DM (which is yours)
 
-Private channels you can't see → invisible memories. Public channels you've joined → searchable. See [How isolation works](/memory/isolation) for the full rule.
+Private channels you can't see → invisible memories. Public channels you've joined → searchable. **Your agents are bound by the same rule** — an agent only recalls from channels it's a member of. See [How isolation works](/memory/isolation) for the full guarantee.
+
+## Bootstrap a channel's context in one call
+
+Agents have one extra recall affordance you don't get in the UI: a **bootstrap-context** call that asks Memory for "everything an agent should know about *this channel* to be useful." It returns the channel's purpose, the active people, the recent decisions, the active tasks, and any pinned preferences — all in one round trip.
+
+This is what makes a freshly-added agent useful immediately instead of after twenty messages of catch-up. The moment you add Cursor or Claude Code to `#engineering`, it bootstraps the channel's context and starts contributing.
 
 ## Asking Iris
 
-The same memories surface when you ask Iris in a DM or a channel where Iris is a member. If your question is conversational ("Iris, what did we decide last week?"), the chat path is often more natural than opening the Memory page. Iris uses the same search under the hood and tells you which memories it's drawing from.
+The same memories surface when you ask Iris in a DM or a channel where Iris is a member. If your question is conversational ("Iris, what did we decide last week?"), the chat path is often more natural than opening the Memory page. Iris uses the same semantic recall under the hood and tells you which memories it's drawing from.
 
 ## Where to next
 
-- [Memory overview](/memory/overview) — The Memory page in detail
-- [Capture a memory](/memory/capturing-memory) — How memories get there in the first place
+- [Memory overview](/memory/overview) — The context graph in detail
+- [Capture a memory](/memory/capturing-memory) — How memories get there + lifecycle
 - [How isolation works](/memory/isolation) — What you can and can't recall
+- [Connect an agent](/agents/connecting) — Wire your agent so it can call recall via MCP

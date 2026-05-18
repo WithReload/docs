@@ -1,12 +1,14 @@
 ---
 title: Capture a memory
-description: How memories get into Reload — humans capture decisions, agents capture context as they work.
+description: How memories get into Reload — and how they evolve through the supersede, invalidate, and expire lifecycle.
 icon: bookmark
 ---
 
-Memories get into Reload two ways: humans mark things explicitly, and agents capture them as a side effect of working.
+Memories get into Reload two ways: humans mark things explicitly, and agents capture them as a side effect of working. Either way, once a memory is in, it isn't deleted — it passes through a lifecycle of supersession, invalidation, or expiration that preserves the audit trail.
 
-## Mark a message as a decision
+This page covers both halves: getting memories *in*, and what happens to them *over time*.
+
+## Humans: Mark a message as a decision
 
 The fastest way to capture a memory yourself is from the message context menu.
 
@@ -31,14 +33,14 @@ Reload posts a toast — **"Marked as decision."** — when the capture lands. I
 </Note>
 
 <Note>
-  **Screenshot:** A MemoryCard rendered inline in a channel thread immediately after the **Mark as decision** action, showing the decision kind tag and source-provenance chevron. Coming soon.
+  **Screenshot:** A Memory card rendered inline in a channel thread immediately after the **Mark as decision** action, showing the decision kind tag and source-provenance chevron. Coming soon.
 </Note>
 
-## Agent-driven capture
+## Agents: Capture as a side effect of working
 
 Most memories aren't marked by humans. They come from your agents.
 
-When Iris (or any agent you've connected) works inside Reload, it can:
+When **Iris** or any agent you've connected ([Claude Code](/agents/connecting), [Cursor](/agents/connecting), [Codex](/agents/connecting), [Devin](/agents/connecting), [Openclaw](/agents/connecting), [Hermes](/agents/connecting), your own) works inside Reload, it can call Memory directly via MCP to:
 
 - Mark a chat decision as a **decision** memory.
 - Note a useful fact mentioned in a thread as a **fact** memory.
@@ -46,17 +48,58 @@ When Iris (or any agent you've connected) works inside Reload, it can:
 
 Each captured memory carries the same lifecycle — kind, status, confidence, provenance — and shows up as a Memory card in the channel where it happened. You don't have to do anything for this to work; it's part of how connected agents use Reload.
 
-For details on what an agent can or can't capture, see [API keys and scopes](/agents/api-keys-and-scopes).
+Because every agent in the workspace draws from the same Memory, **what one agent captures is immediately available to every other agent and human in the same scope.** Your Cursor agent's commit decisions land where your Codex agent will see them tomorrow.
+
+For details on what an agent's API key permits, see [API keys and scopes](/agents/api-keys-and-scopes).
 
 ## What happens to a memory over time
 
-Memories aren't deleted from the UI. They evolve through three lifecycle actions, all agent or admin-driven:
+Memories aren't deleted. They evolve through three lifecycle actions, each of which preserves the audit trail.
 
-- **Supersede** — replace a memory with a newer claim. The old one keeps its history but is marked `superseded` and stops surfacing in recall. You'll see a small pencil icon on Memory cards that can still be superseded.
-- **Invalidate** — explicitly retract a memory (with a reason). The card shows a strikethrough + an "Invalidated: *reason*" callout.
-- **Expire** — when a memory was captured with a TTL, it transitions to `expired` automatically after the deadline.
+### Supersede — replace with a newer claim
 
-End users don't have a delete button — by design. Superseding preserves the audit trail of *why* something changed; invalidating preserves *why* something was wrong. See [Memory overview](/memory/overview#memory-statuses) for the full status table.
+When a memory needs to be updated — *"we decided launch is now Wednesday, not Tuesday"* — an agent (or admin) **supersedes** the old memory with a new one. The old memory stays in the graph with status `superseded`, no longer surfacing in recall but still walkable via the **supersedes** edge.
+
+Why this matters:
+
+- **Audit trail.** You can always trace *what* changed and *when*, because both versions are still there with their provenance.
+- **No silent drift.** An agent never wakes up to find a memory it knew about has been quietly rewritten. The old version is visible; recall just stops returning it.
+- **Recall stays clean.** A semantic search for *"launch date"* returns only the current claim, not all five revisions stacked up.
+
+In the Memory card UI, you'll see a small pencil icon on any memory that can still be superseded (status `current` or `proposed`).
+
+### Invalidate — explicitly retract
+
+When a memory is *wrong* — not outdated, just incorrect — an agent or admin **invalidates** it with a reason. The memory transitions to status `invalidated`. The card shows a strikethrough plus an **"Invalidated: *reason*"** callout so anyone walking back through the graph sees both the original claim and why it was retracted.
+
+Use invalidation when:
+
+- A memory was captured from a misunderstanding ("Actually, we never agreed to that.")
+- A fact was incorrect ("That URL was a typo; the real one is elsewhere.")
+- A preference no longer holds and you want it gone from the audit trail explicitly, not just superseded.
+
+The original claim is preserved with its provenance — invalidation never destroys data, it just stops the memory from surfacing in recall.
+
+### Expire — TTL-driven, automatic
+
+Some memories are inherently short-lived: *"deploys are paused this week"*, *"Alice is out of office until Monday"*. When a memory is captured with a **TTL** (time-to-live), it auto-transitions to status `expired` after the deadline.
+
+Expired memories don't surface in recall, but they stay in the graph for audit. You'll see the TTL surfaced on the Memory card while it's still active.
+
+Most captured memories don't have a TTL — they're permanent by default. TTL is opt-in at capture time, typically when an agent recognises that the claim is time-bounded.
+
+## Why you don't see a delete button
+
+By design. The four lifecycle states above cover every reason you might want to remove a memory:
+
+| You want to | Use |
+|---|---|
+| Update the claim with a newer one | **Supersede** |
+| Retract a wrong claim | **Invalidate** |
+| Time-bound a claim | **TTL → Expire** |
+| Quarantine a disputed claim while you debate | `Contested` status (set automatically when two memories disagree) |
+
+A hard delete would break the provenance chain — an agent that recalled the memory earlier wouldn't know what changed. The lifecycle preserves that chain without polluting recall.
 
 ## What's in a memory card
 
@@ -64,6 +107,7 @@ Each card surfaces the visual cues that matter — kind, status, confidence, TTL
 
 ## Where to next
 
-- [Search memory](/memory/searching-memory) — Find captured memories by asking a question
+- [Memory overview](/memory/overview) — The context graph in detail
+- [Search memory](/memory/searching-memory) — Semantic recall + how agents save tokens
 - [How isolation works](/memory/isolation) — Why a private-channel memory stays in that channel
-- [Memory overview](/memory/overview) — Kinds, statuses, the Memory page
+- [Connect an agent](/agents/connecting) — Wire your agent so it can capture and recall via MCP

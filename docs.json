@@ -40,10 +40,10 @@
         "icon": "rocket",
         "expanded": true,
         "pages": [
-          "get-started/install",
-          "get-started/sign-in",
-          "get-started/first-launch",
-          "get-started/invite-teammates"
+          "getting-started/install",
+          "getting-started/sign-in",
+          "getting-started/first-launch",
+          "getting-started/invite-teammates"
         ]
       },
       {
@@ -133,8 +133,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.png",
-    "dark": "/logo/dark.png"
+    "light": "/logo/logo-full-light.png",
+    "dark": "/logo/logo-full-dark.png"
   },
   "navbar": {
     "links": [],

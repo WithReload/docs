@@ -105,9 +105,9 @@ swapped for:
 ## Linking conventions
 
 - Internal links use relative paths without the `.mdx` extension:
-  `[Install Reload](/get-started/install)`.
+  `[Install Reload](/getting-started/install)`.
 - External links open in a new tab (Mintlify handles this automatically).
-- Cross-section links at the bottom of get-started pages form a linear flow
+- Cross-section links at the bottom of getting-started pages form a linear flow
   (install → sign-in → first-launch → invite-teammates).
 
 ## Mintlify components in active use

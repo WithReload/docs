@@ -1,6 +1,6 @@
 ---
 title: Connect an agent
-description: Wire Claude Code, Cursor, Claude Desktop, OpenClaude, or any MCP-speaking agent into Reload.
+description: Wire Claude Code, Cursor, Claude Desktop, Openclaw, or any MCP-speaking agent into Reload.
 icon: plug
 ---
 
@@ -71,8 +71,8 @@ Each tool has its own way of accepting that config. Pick yours below.
     {/* source: apps/desktop/src/components/onboarding/AgentOnboardingWizard.tsx:643-657 */}
   </Tab>
 
-  <Tab title="OpenClaude">
-    Same JSON shape as Claude Desktop, different path. Edit `~/.config/Claude/claude_desktop_config.json` and add:
+  <Tab title="Openclaw">
+    [Openclaw](https://openclaw.ai) uses the same MCP config shape as Claude Desktop. Open Openclaw's MCP server settings and add a `reload` entry:
 
     ```json
     {
@@ -86,9 +86,7 @@ Each tool has its own way of accepting that config. Pick yours below.
     }
     ```
 
-    Save and restart OpenClaude.
-
-    {/* source: apps/desktop/src/agents-directory/catalog.ts:118-144 */}
+    Save and restart Openclaw.
   </Tab>
 
   <Tab title="Custom MCP client">
@@ -101,12 +99,12 @@ Each tool has its own way of accepting that config. Pick yours below.
 
     Reload exposes channel-read/write, DM-send, task CRUD, memory capture/recall, and a handful of workspace-info tools to authenticated agents. Tool names match what's shown in the MCP servers list once you connect.
 
-    For setups that don't support remote MCP servers directly, the `mcp-remote` shim (used in the Cursor and OpenClaude snippets above) works as a stdio bridge.
+    For setups that don't support remote MCP servers directly, the `mcp-remote` shim (used in the Cursor and Openclaw snippets above) works as a stdio bridge.
   </Tab>
 </Tabs>
 
 <Note>
-  **Screenshot:** Agent Directory chooser screen in the wizard showing Cursor, Claude Code, OpenClaude tiles. Coming soon.
+  **Screenshot:** Agent Directory chooser screen in the wizard showing Cursor, Claude Code, Openclaw tiles. Coming soon.
 </Note>
 
 ## Verify the connection

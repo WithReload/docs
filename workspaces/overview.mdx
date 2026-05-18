@@ -1,10 +1,10 @@
 ---
 title: Workspaces
-description: Your top-level home in Reload — what's in one, how to switch between them, and how to manage settings.
+description: Your top-level home in Reload — what's in a workspace and how to manage its settings.
 icon: building
 ---
 
-A **workspace** is the top-level container for everything in Reload — your channels, members, agents, memory, tasks, billing. You can belong to more than one (different employer, different side project, your own personal scratchpad) and switch between them at any time.
+A **workspace** is the top-level container for everything in Reload — your channels, members, agents, memory, tasks, billing.
 
 ## You get one automatically
 
@@ -16,23 +16,12 @@ When you sign up, Reload creates a personal workspace for you on the spot, named
 
 You don't have to do anything to make this happen. You can rename the workspace later in **Settings → General**.
 
-## Switching workspaces
+## One workspace per account (for now)
 
-Open the workspace switcher from the user menu in the left rail. The popover lists every workspace you belong to, with the active one checked.
-
-{/* source: apps/desktop/src/components/sidebar/WorkspaceSwitcher.tsx:27-104 */}
-
-Each row shows:
-
-- The workspace **avatar** (or initials if there's no logo)
-- The workspace **name**
-- The workspace **slug** (the URL identifier)
-- A **checkmark** on the currently-active workspace
-
-At the bottom: **Create new workspace** if you want to start a fresh one.
+Today, each Reload account belongs to exactly one workspace. Multi-workspace support — being part of, say, your day job's workspace and a side-project workspace from the same account — is on the roadmap.
 
 <Note>
-  **Screenshot:** Workspace switcher popover open in the rail user menu with multiple workspaces listed and the active one checked. Coming soon.
+  **Coming soon:** Multi-workspace + workspace switching. When it lands, you'll be able to belong to several workspaces and switch between them from the rail user menu.
 </Note>
 
 ## Workspace settings (Settings → General)
@@ -43,7 +32,7 @@ Owners and admins can edit the workspace identity from **Settings → General**.
 
 Editable fields:
 
-- **Workspace logo** — square image used across the switcher and members surfaces.
+- **Workspace logo** — square image shown across the app wherever your workspace is referenced.
 - **Workspace name** — display name.
 - **Workspace slug** — used in URLs and invite links. Letters, numbers, dashes.
 - **Default channel** — the channel a new member lands in.

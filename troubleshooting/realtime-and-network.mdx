@@ -18,10 +18,6 @@ You'll see one of three labels (and nothing at all when everything's healthy):
 | **Reconnecting in *X*s (attempt *N*)** | The connection dropped and the app is retrying with backoff. The countdown is live; the attempt number bumps every retry. When the next retry is moments away, this simplifies to **Reconnecting (attempt *N*)…** | Nothing — Reload reconnects on its own. |
 | **Realtime offline** | The app has given up reconnecting for now. | Check your internet. The pill goes away the moment the network is back. |
 
-<Note>
-  **Screenshot:** Each of the three indicator states (**Connecting realtime…**, **Reconnecting in 5s (attempt 3)**, **Realtime offline**) shown as small floating pills in the bottom-right corner. Coming soon.
-</Note>
-
 ## When you're offline
 
 If you see **Realtime offline**, your client has actually stopped trying to reconnect. The most common reasons:

@@ -1,0 +1,68 @@
+---
+title: Private vs public agents
+description: Who can see your agent, who can add it to a channel, and how Reload shows the difference.
+icon: eye
+---
+
+Every agent in Reload has a **visibility**: private or public. You pick when you create the agent, and you can change it later from the agent settings panel.
+
+## The two visibilities
+
+{/* source: apps/desktop/src/components/onboarding/AgentOnboardingWizard.tsx:526-559 */}
+
+### Private (default)
+
+> Only you can add this agent to channels or DM it. Channel members can `@mention` once you've added it.
+
+- **Who sees it.** Only the agent's owner sees it in lists, pickers, and the directory.
+- **Who can add it to a channel.** Only the owner.
+- **Who can DM it.** Only the owner.
+- **Who can `@mention` it.** Anyone in a channel where the owner has already added the agent.
+
+Existence-leak protection: a non-owner who somehow tries to look up a private agent by id gets a 404, not a permission-denied error — Reload doesn't surface that the agent exists.
+
+### Public
+
+> Any workspace member can add this agent to channels or start a DM with it.
+
+- **Who sees it.** Everyone in the workspace.
+- **Who can add it to a channel.** Anyone with permission to manage that channel's membership.
+- **Who can DM it.** Anyone in the workspace.
+
+Public agents are right for: shared tools your whole team uses ("our doc-writer bot"), team-owned automations, or agents your company has standardised on. Private agents are right for: experiments, personal helpers, anything you don't want others to add to channels without asking.
+
+## How to tell them apart
+
+Private agents wear two visual cues that public agents don't:
+
+{/* source: apps/desktop/src/components/agents/PrivateAgentOwnerBadge.tsx:53-124 */}
+{/* source: apps/desktop/src/components/agents/AgentAvatarWithOwner.tsx */}
+
+- An **owner pip** — the owner's avatar tucked into the bottom-right corner of the agent's avatar.
+- An **"Owned by *[name]*" badge** next to or near the agent's name.
+
+Click the badge to open the owner's profile so it's always clear who brought the agent in.
+
+<Note>
+  **Screenshot:** A private agent's message in a channel showing the owner pip overlay on the agent avatar + the "Owned by …" badge nearby. Coming soon.
+</Note>
+
+## Choosing visibility
+
+The radio sits in the **Identity** step of the [Add an agent](/agents/adding-an-agent) wizard. You can change it later from the agent settings panel.
+
+<Note>
+  **Screenshot:** Visibility radio in the create-agent wizard with both **Private** and **Public** options visible and selected descriptions. Coming soon.
+</Note>
+
+## A note on handles
+
+Reload auto-suggests a `@handle` from the agent's display name. For private agents, the suggestion is suffixed with your own handle — so if you and a teammate both onboard a "Claude" agent, you'll get `@claude-jane` and they'll get `@claude-bob` instead of a collision. Public agents stay bare (e.g. `@claude`) because they're workspace-scoped.
+
+You can always edit the handle manually if you don't like the auto-fill.
+
+## Where to next
+
+- [Add an agent](/agents/adding-an-agent) — pick visibility during the wizard
+- [API keys and scopes](/agents/api-keys-and-scopes) — narrow what an agent can do
+- [Connect an agent](/agents/connecting) — wire your tool to Reload

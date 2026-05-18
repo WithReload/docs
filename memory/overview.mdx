@@ -1,0 +1,82 @@
+---
+title: Memory overview
+description: What Memory is in Reload, where it lives, and the building blocks you'll see.
+icon: brain
+---
+
+**Memory** is Reload's long-term shared brain. As you and your agents work, the things that matter — decisions, facts, preferences — get captured as Memory entries. Anyone with access can recall them later.
+
+Memory shows up in two places:
+
+1. **Inline in chat** — as **Memory cards** the moment something is captured.
+2. **The Memory page** — a dedicated view where you can browse, search, and follow the connections between memories.
+
+## The Memory page
+
+Click the **Brain** icon in the left rail to open the Memory page.
+
+{/* source: apps/desktop/src/components/sidebar/WorkspaceSidebar.tsx:222-228 */}
+
+The page has three panes:
+
+- **Left** — filters. Toggle which kinds of nodes (memories, identities, channels) and connections you want to see. Pick a scope (a specific channel, or workspace-wide).
+- **Centre** — the canvas. An interactive graph of memories and how they relate. Click a node to inspect it; double-click to expand its neighbourhood.
+- **Right** — the detail panel. Full content of the selected node + its provenance walk.
+
+A **Search** button in the header opens a modal where you can ask a question in plain language. See [Search memory](/memory/searching-memory) for details.
+
+<Note>
+  **Screenshot:** Memory page with the graph populated, filter sidebar visible on the left, and one node selected with its detail panel open on the right. Coming soon.
+</Note>
+
+## Memory cards
+
+Whenever a memory is captured (by you or by an agent), Reload posts a **Memory card** inline in the channel where it happened:
+
+{/* source: apps/desktop/src/components/memory/MemoryCard.tsx:81-176 */}
+
+Each card shows:
+
+- A **kind** tag — `decision` (blue), `fact` (green), or `preference` (cyan).
+- A **status** badge — `current` is the default. Other states (`proposed`, `superseded`, `contested`, `expired`, `invalidated`) indicate the lifecycle of the claim.
+- The **content** — the captured claim, in the user's words.
+- A **confidence** percentage (only shown if less than 100%).
+- A **TTL** (only shown if the memory has an expiry).
+- Buttons for **copy ID**, **supersede** (replace with a newer claim), and **see related**.
+
+Expand the **N sources** chevron at the bottom to see the provenance — the messages or memories this entry was derived from.
+
+<Note>
+  **Screenshot:** A MemoryCard rendered inline in a channel thread, kind tag and status badge visible, with the source-provenance chevron expanded. Coming soon.
+</Note>
+
+## Memory kinds
+
+Three kinds cover what's worth remembering:
+
+| Kind | What it captures |
+|---|---|
+| **Decision** | A choice the team made — "we'll launch on Tuesday", "we're standardising on the Acme SDK". |
+| **Fact** | A piece of information that's true and useful later — "the staging URL is …", "our API rate limit is 100/min". |
+| **Preference** | A way the team prefers to do something — "we use trunk-based development", "we ship on Fridays only as bug fixes". |
+
+You'll see the same three kinds when an agent captures memory on your behalf.
+
+## Memory statuses
+
+| Status | Meaning |
+|---|---|
+| **Current** | Active and recall-eligible. The default for newly-captured memories. |
+| **Proposed** | An agent suggested this; awaiting confirmation. |
+| **Superseded** | Replaced by a newer claim. Kept for history but not surfaced by recall. |
+| **Contested** | Two memories disagree. Reload flags both so the team can resolve. |
+| **Expired** | Hit its TTL. Not surfaced by recall. |
+| **Invalidated** | Explicitly retracted. The card shows a strikethrough and the reason. |
+
+You won't find a delete-memory button — superseding and invalidation are the lifecycle actions Reload uses instead. See [Capture a memory](/memory/capturing-memory) for how those work.
+
+## Where to next
+
+- [Capture a memory](/memory/capturing-memory) — Mark a message as a decision, or let an agent do it
+- [Search memory](/memory/searching-memory) — Ask in plain language
+- [How isolation works](/memory/isolation) — Channel scoping keeps private things private

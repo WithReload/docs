@@ -1,0 +1,75 @@
+---
+title: Billing
+description: Subscribe, change plans, redeem a coupon, and manage your subscription.
+icon: credit-card
+---
+
+The **Billing** tab in Settings is where you change plans, manage your subscription, and update payment details. Owner or admin only.
+
+## What you see
+
+{/* source: apps/desktop/src/components/settings/sections/BillingSection.tsx:94-148 */}
+
+Two sections, top to bottom:
+
+1. **Current subscription** — your active plan, balances, and a button to manage the subscription in Stripe's hosted customer portal.
+2. **Plans** — a four-card grid with a **Monthly / Annual** cycle toggle. Click **Upgrade** on the plan you want to start the checkout flow.
+
+The plan you're on is highlighted so you can see what you currently have at a glance.
+
+<Note>
+  **Screenshot:** Billing tab with the subscription card on top and the plan grid + Monthly/Annual cycle toggle visible underneath. Coming soon.
+</Note>
+
+## Upgrading or changing plans
+
+<Steps>
+  <Step title="Pick the cycle">
+    **Monthly** or **Annual** — the toggle at the top of the plan grid. Annual saves vs monthly; the equivalent monthly rate is shown in the plan card.
+  </Step>
+  <Step title="Click Upgrade on the plan you want">
+    You'll be redirected to Stripe Checkout in your default browser.
+  </Step>
+  <Step title="Enter your details (and a coupon, if you have one)">
+    Stripe Checkout collects your card, billing address, and tax info. The **Add promotion code** field accepts any Reload-issued coupon — see [Using a coupon](#using-a-coupon) below.
+  </Step>
+  <Step title="Pay">
+    Once payment is confirmed, Stripe sends you back to Reload. The desktop app refreshes the Billing tab when it regains focus, so the new plan should show up within a second of you returning.
+  </Step>
+</Steps>
+
+## Using a coupon
+
+{/* source: apps/api/src/routes/billing.ts — allow_promotion_codes: true (REL-363) */}
+
+If you've been given a promotion code, you can apply it directly on the Stripe Checkout page during the upgrade flow.
+
+1. On the checkout page, look for the **Add promotion code** link below the order summary.
+2. Click it to expand the code field, paste your code, and apply.
+3. The discount applies to your subtotal before payment.
+
+Coupons work on every paid plan (Individual, Pro, Growth). They don't apply to Custom contracts, which are negotiated directly with sales.
+
+<Note>
+  **Screenshot:** Stripe Checkout page on a sample upgrade flow with the **Add promotion code** field expanded and a code applied. Coming soon.
+</Note>
+
+## Managing an active subscription
+
+When you're already subscribed, the **Current subscription** card shows your plan, the current balance, and a **Manage subscription** button.
+
+Clicking it opens Stripe's hosted customer portal in your browser. From there you can:
+
+- Update the **payment method** (card, bank account).
+- Update your **billing address** and **tax ID**.
+- Download **invoices** and receipts.
+- **Cancel** the subscription — you'll stay on the paid tier until the end of the current billing period, then automatically downgrade to Starter.
+- **Re-subscribe** if you previously cancelled.
+
+When you finish in Stripe and come back to Reload, the Billing tab refreshes automatically.
+
+## Where to next
+
+- [Plans](/settings/plans) — the full pricing table
+- [Usage and quotas](/settings/usage-and-quotas) — see what you've used
+- [Plan limits](/troubleshooting/plan-limits) — what the upgrade prompts mean

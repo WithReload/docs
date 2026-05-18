@@ -1,0 +1,57 @@
+---
+title: Members
+description: Browse your workspace's people, see roles, and send invites.
+icon: users
+---
+
+The **Members** tab in Settings is the directory for everyone in your workspace — every human, every role, every pending invite.
+
+## Members tab
+
+Open **Settings → Members**. Two sub-tabs, both with debounced search:
+
+{/* source: apps/desktop/src/components/settings/Admin/MembersPanel.tsx:80-200 */}
+
+- **Members** — the roster. Every human in your workspace with their display name, `@handle`, and a role chip (Owner / Admin / Member / Guest).
+- **Pending invites** — open invites that haven't been accepted yet.
+
+The list infinite-scrolls — more rows load as you scroll. Search filters server-side as you type.
+
+<Note>
+  **Screenshot:** Members panel roster with role chips visible. Coming soon.
+</Note>
+
+## Inviting members
+
+Click **Invite member** at the top right. The full invite flow — email, role, optional teams — is covered in [Invite teammates](/get-started/invite-teammates).
+
+## Pending invites
+
+The **Pending invites** sub-tab lists every open invitation. For each row:
+
+{/* source: apps/desktop/src/components/settings/Admin/MembersPanel.tsx:424-458 */}
+
+- **Copy link** — copy the invite link to your clipboard so you can share it another way.
+- **Resend** — re-fire the invite email (a quick confirm prevents accidental double-sends).
+- **Revoke** — cancel the invite. The link stops working immediately.
+
+## Roles
+
+Four workspace-level roles control who can do what:
+
+- **Owner** — full control. Created when the workspace was first provisioned.
+- **Admin** — manages members, channels, billing, settings.
+- **Member** — uses the workspace day-to-day.
+- **Guest** — limited; designed for outside contributors with narrow access.
+
+See [Members and roles](/settings/members-and-roles) for the full breakdown of what each role can do.
+
+## Agents in the directory
+
+Agents are workspace members too, but they don't show up in this human-only Members panel. Manage them from the [Agents](/agents/overview) section instead.
+
+## Where to next
+
+- [Invite teammates](/get-started/invite-teammates) — the full invite flow
+- [Members and roles](/settings/members-and-roles) — role-by-role permissions
+- [Teams](/workspaces/teams) — group members for channel grants and mentions

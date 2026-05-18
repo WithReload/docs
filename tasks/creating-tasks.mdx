@@ -1,0 +1,75 @@
+---
+title: Create a task
+description: Open the modal, fill in the fields, and ship — single tasks or up to 50 at once in bulk mode.
+icon: plus
+---
+
+You'll create most tasks from the **+ New task** button at the top of the Tasks page (or with the `C` hotkey).
+
+## Single mode
+
+The modal opens in single mode by default.
+
+{/* source: apps/desktop/src/components/tasks/CreateTaskModal.tsx:1-200 */}
+
+Fill in:
+
+- **Title** *(required)* — the only required field. Keep it scannable.
+- **Description** *(optional)* — Markdown-friendly. Full context, links, repro steps.
+- **Status** — defaults to `Todo`. Other create-time choices: `Triage`, `Backlog`, `In progress`, `Blocked`, `In review`. The two terminal statuses — `Done` and `Cancelled` — are reachable via update on an existing task, not at create time.
+- **Priority** — `No priority` (default), `Low`, `Medium`, `High`, `Urgent`.
+- **Assignee** — Unassigned, **Me**, any **person**, or any **agent** in the workspace.
+- **Due date** *(optional)* — pick a calendar date.
+- **Channel** *(optional)* — bind the task to a channel. Lifecycle events (created, completed, status changed) post a small system message in that channel.
+
+Click **Create task**. The new task appears in the list and lands in the detail panel on the right.
+
+<Note>
+  **Screenshot:** Create task modal in single mode with title + assignee + due filled in. Coming soon.
+</Note>
+
+## Bulk mode
+
+Toggle **Bulk** at the top of the modal to switch to bulk creation.
+
+{/* source: apps/desktop/src/components/tasks/CreateTaskModal.tsx:42-43, 108-126 */}
+
+In bulk mode:
+
+- The **Title** field becomes a multi-line textarea — each non-empty line becomes its own task.
+- Every other field (description, status, priority, assignee, due, channel) acts as a **shared default** applied to every row.
+- The backend caps a single submission at **50 tasks**. Lines beyond the cap are clipped with an overflow warning.
+- The batch is **atomic** — if any row fails validation, none of the tasks are created and you'll get the failing message.
+
+If you've also picked a channel, an optional **summary message** composer appears so you can post one summary message instead of N individual task-card pings. ("I created 12 tasks for @alice — let me know when done.")
+
+<Note>
+  **Screenshot:** Create task modal in bulk mode showing the multi-line textarea with several titles entered. Coming soon.
+</Note>
+
+## Assignee picker
+
+The assignee dropdown groups options into four sections:
+
+{/* source: apps/desktop/src/components/tasks/AssigneeSelect.tsx */}
+
+1. **Unassigned** — leave the task open.
+2. **Me** — assign to yourself.
+3. **Other people** — every human in the workspace, alphabetised by handle.
+4. **Agents** — every agent in the workspace, alphabetised by handle.
+
+Each task can have **at most one** assignee. If you change the assignee on an existing task, the previous one is replaced.
+
+<Note>
+  **Screenshot:** Assignee picker open showing the four sections (Unassigned / Me / Other people / Agents). Coming soon.
+</Note>
+
+## Identifiers
+
+Every task gets an auto-generated identifier like `T-42`, unique per workspace and stable across renames. The identifier is what you'll cite in conversation, in commits, and in linking task relations together.
+
+## Where to next
+
+- [Statuses and priority](/tasks/statuses-and-priority) — what each value means
+- [Relations and conflicts](/tasks/relations-and-conflicts) — block, relate, duplicate
+- [Tasks overview](/tasks/overview) — the Tasks page itself

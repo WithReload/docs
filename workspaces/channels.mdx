@@ -1,0 +1,121 @@
+---
+title: Channels
+description: Create, configure, archive, and leave channels — Reload's main conversation surface.
+icon: hash
+---
+
+A **channel** is a named room for an ongoing conversation. Public or private, with a fixed visibility for its lifetime and three role tiers for who can do what inside it.
+
+## Create a channel
+
+Click the **+** button at the top of the Channels list in the sidebar. The create modal asks for:
+
+{/* source: apps/desktop/src/components/modals/CreateChannelModal.tsx:103-280 */}
+
+<AccordionGroup>
+  <Accordion title="Visibility (Public or Private)">
+    Pick one — **and it can't be changed later**, by design.
+
+    - **Public** — anyone in the workspace can join and read.
+    - **Private** — only invited members can see this channel.
+
+    {/* source: apps/desktop/src/components/modals/CreateChannelModal.tsx:160 */}
+
+    > Only invited members can see this channel.
+  </Accordion>
+
+  <Accordion title="Channel name">
+    Lowercase letters, numbers, and hyphens; must start with a letter. Reload checks availability live as you type — a green checkmark means it's free, a red X means another channel already has that name.
+  </Accordion>
+
+  <Accordion title="Purpose">
+    Optional one-liner describing what the channel is for. Members see it in the channel header.
+  </Accordion>
+
+  <Accordion title="Enable Iris">
+    Toggle on by default. When on, members can `@iris` in this channel to ask questions about decisions, context, and knowledge. Toggle off to keep Iris out of this room.
+  </Accordion>
+</AccordionGroup>
+
+Click **Create Channel**. You can invite teammates and agents from the channel's members panel right after.
+
+<Note>
+  **Screenshot:** Create channel modal with **Private** selected, a name typed, a purpose filled in, and **Enable Iris** on. Coming soon.
+</Note>
+
+## Channel roles
+
+{/* source: apps/api/src/routes/channels.ts:103-115 */}
+
+Every member of a channel has one of three roles:
+
+| Role | What it does |
+|---|---|
+| **Admin** | Manages the channel — rename, archive, change membership, assign channel roles. |
+| **Poster** | Read, post, mention, react. The default for new members. |
+| **Reader** | Read-only. |
+
+{/* source: apps/api/src/routes/channels.ts:1205-1207 */}
+
+**One rule for agents:** an agent cannot hold the channel-admin role. Pick `poster` or `reader` for agents.
+
+## Channel settings (right-side panel)
+
+Open a channel's settings from its header to see the **Channel Settings** panel.
+
+{/* source: apps/desktop/src/components/channel/ChannelSettingsPanel.tsx:1-537 */}
+
+What you can do (with the right role):
+
+- **Rename** the channel (admin only).
+- Edit the **purpose** (admin only).
+- **Mute** or **unmute** notifications for yourself.
+- Toggle **Use Iris in this channel** (admin only).
+- See and manage **members** — paginated 5 per page with search. Admins can remove members.
+- **Leave channel** — everyone has this option.
+- **Archive channel** — owners, workspace admins, or this channel's admin only. Danger zone.
+
+<Note>
+  **Screenshot:** Channel settings panel showing the members list with the role dropdown open. Coming soon.
+</Note>
+
+### Leaving a channel
+
+Click **Leave channel** in the panel. You'll be asked to confirm.
+
+You'll stop receiving messages and notifications from the channel. If it's public, you can rejoin anytime.
+
+**Catch:** if you're the only member, Reload won't let you leave — you'd orphan the channel. You'll see:
+
+> {/* source: apps/desktop/src/components/channel/ChannelSettingsPanel.tsx:209 */}
+> You're the only member of #channel. Archive or delete it instead of leaving.
+
+### Archiving a channel
+
+Archiving is the destructive "I'm done with this channel" action — owners and admins only. From the **Danger Zone** at the bottom of the panel:
+
+{/* source: apps/desktop/src/components/channel/ChannelSettingsPanel.tsx:486-498 */}
+
+> Archiving hides this channel from everyone and prevents new messages. It also frees a slot against your plan's channel limit.
+
+You'll be asked to confirm. Once archived, the channel disappears from everyone's sidebars.
+
+## Plan limits
+
+Free and starter plans cap the number of channels per workspace (Starter = 2). When you've hit the cap, the **+** button hides for admins, and members trying to create a channel via the API or MCP get a clear error:
+
+{/* source: apps/desktop/src/components/sidebar/ChannelSidebar.tsx:174 */}
+
+> Your plan allows 2 channels. Upgrade to add more.
+
+See [Plans](/settings/plans) for the cap on each tier.
+
+<Note>
+  **Screenshot:** Sidebar showing the **Your plan allows 2 channels** inline error. Coming soon.
+</Note>
+
+## Where to next
+
+- [Members](/workspaces/members) — the workspace-wide member directory
+- [Teams](/workspaces/teams) — grant channel roles to a team in bulk
+- [Plans](/settings/plans) — channel + history limits per tier

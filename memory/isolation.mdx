@@ -1,0 +1,50 @@
+---
+title: How isolation works
+description: Why memories from private channels stay private — for you and for your agents.
+icon: shield
+---
+
+Reload's memory respects the same boundaries as the conversations it came from. If you can't see a channel, you can't see (or recall) its memories — and neither can the agents you've added to other channels.
+
+## The principle
+
+Every memory is **scoped** to where it was captured:
+
+- A memory captured in a channel is scoped to that channel.
+- A memory captured in a DM is scoped to that DM.
+- A memory captured at workspace level (rare; mostly admin-set) is scoped to the workspace.
+
+Recall — whether yours via the search bar, or an agent's via the API — walks the scope and only surfaces what the caller has access to.
+
+## What that means for you
+
+If you're a member of `#engineering` and `#marketing`, you can recall memories from both.
+
+If `#sensitive` exists but you're not a member, you'll never see its memories — they won't appear on your Memory page, won't show up in your search results, and won't be retrieved when Iris answers your questions.
+
+When someone shares a channel with you, every memory ever captured in that channel becomes available to you immediately. When you leave a channel, recall from it stops.
+
+## What that means for your agents
+
+Agents inherit the channel scope of their membership. An agent that's a member of `#engineering` can recall from `#engineering`, but not from `#marketing` unless you've added it there too.
+
+This is why agent visibility matters:
+
+- **Private agents** can only be added to channels by their owner — so the scope is whatever you've explicitly granted.
+- **Public agents** can be added to channels by any admin — but they still only recall from the channels they're actually in.
+
+Even Iris — the built-in agent — only ever recalls from places the *asking user* has access to. If you ask Iris for context in `#engineering`, Iris won't pull from `#marketing` even if it's a member of both.
+
+## What that means for compliance
+
+Three concrete guarantees:
+
+1. **Private channel memories never leak across channel boundaries.** Not to humans who shouldn't see the channel; not to agents that aren't members.
+2. **DM memories stay in the DM.** A memory captured in your Iris DM isn't recallable from a public channel — even by Iris itself.
+3. **Removing someone from a channel removes their access to that channel's memories.** Immediately, with no exception.
+
+## Where to next
+
+- [Memory overview](/memory/overview) — Where to find memories and how they're rendered
+- [Search memory](/memory/searching-memory) — How recall returns results
+- [Private vs public agents](/agents/private-vs-public) — Visibility rules for the agents you bring in

@@ -1,0 +1,66 @@
+---
+title: Sign in
+description: How signing in works on the web and in the desktop app.
+icon: log-in
+---
+
+Reload uses a single hosted sign-in screen for both the web and the desktop app. Pick a provider and you're in.
+
+## Sign in from the web
+
+Open [app.reload.chat](https://app.reload.chat) and click **Sign in**. You'll be sent to the hosted sign-in screen, where you can:
+
+- Continue with **Google**
+- Continue with **GitHub**
+- Sign in with **email**
+
+The same screen handles signing in *and* signing up. If you've signed in before, you'll land back in your workspace. If you're new, Reload creates a personal workspace for you on the spot — see [Your first launch](/get-started/first-launch).
+
+<Note>
+  **Screenshot:** The hosted sign-in screen with provider buttons (Google / GitHub / email) visible. Coming soon.
+</Note>
+
+## Sign in from the desktop
+
+When you launch the desktop app, it opens the sign-in screen in your default browser. After you complete the sign-in, your browser hands you back to the desktop app via a `reload://` link.
+
+If your browser doesn't open the desktop app automatically, the page shows a fallback you can click:
+
+{/* source: apps/web/src/app/auth/callback/page.tsx:209-232 */}
+
+> **Opening Reload…**
+>
+> You should be back in the desktop app in a moment. If nothing happened, click below.
+>
+> **[Open in Reload]**
+>
+> You can close this tab once the desktop app opens.
+
+<Note>
+  **Screenshot:** The "Opening Reload…" handoff screen showing the **Open in Reload** button. Coming soon.
+</Note>
+
+## Sign-in via invite link
+
+If a teammate has invited you, the email you received contains a special sign-in link. Open it on the device you want to use:
+
+- Reload opens its sign-in screen with the invite attached.
+- After you sign in, Reload claims the invite automatically and drops you into the inviter's workspace.
+
+If the invite is no longer valid (expired, revoked, or sent to a different email), Reload routes you back to a friendly preview page that explains what happened. See [Sign-in issues](/troubleshooting/sign-in#invite-link-doesn-t-work) for the full list.
+
+## When sign-in fails
+
+If anything goes wrong during sign-in, you'll see:
+
+{/* source: apps/web/src/app/auth/callback/page.tsx:61 */}
+
+> **Sign-in didn't complete. Please try again.**
+>
+> **[Try again]**
+
+The message is deliberately generic. The **Try again** button forces a fresh sign-in (rather than reusing a stale session) — for most transient issues, one click is enough. If the failure persists, see [Sign-in issues](/troubleshooting/sign-in).
+
+## Next
+
+[Your first launch →](/get-started/first-launch)

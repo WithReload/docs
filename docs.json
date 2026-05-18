@@ -1,12 +1,12 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "almond",
-  "name": "Product Guide",
-  "description": "Step-by-step guides for every product—platform setup, analytics, and integrations in one place.",
+  "name": "Reload Documentation",
+  "description": "Everything you need to run your team's agents in Reload.",
   "colors": {
-    "primary": "#166E3F",
-    "light": "#26BD6C",
-    "dark": "#166E3F"
+    "primary": "#3B82F6",
+    "light": "#60A5FA",
+    "dark": "#2563EB"
   },
   "favicon": "/favicon.ico",
   "icons": {
@@ -27,71 +27,126 @@
           "href": "/"
         },
         {
-          "anchor": "Changelog",
-          "icon": "scroll-text",
-          "href": "https://www.mintlify.com/docs/changelog"
-        },
-        {
           "anchor": "Help",
           "icon": "life-buoy",
-          "href": "https://www.mintlify.com/docs/contact-support"
+          "href": "mailto:support@reload.chat"
         }
       ]
     },
     "directory": "card",
     "groups": [
       {
-        "group": "Platform",
-        "icon": "layers",
+        "group": "Get started",
+        "icon": "rocket",
         "expanded": true,
         "pages": [
-          "platform/quickstart",
-          "platform/key-concepts",
-          "platform/configuration/settings",
-          "platform/configuration/user-management",
-          "platform/administration/roles-permissions"
+          "get-started/install",
+          "get-started/sign-in",
+          "get-started/first-launch",
+          "get-started/invite-teammates"
         ]
       },
       {
-        "group": "Analytics",
-        "icon": "chart-bar",
+        "group": "Concepts",
+        "icon": "book-open",
         "expanded": true,
         "pages": [
-          "analytics/quickstart",
-          "analytics/connect-data",
-          "analytics/dashboards/create-dashboard",
-          "analytics/reports/scheduled-reports"
+          "concepts/overview",
+          "concepts/channels-and-dms",
+          "concepts/agents-and-humans",
+          "concepts/memory-and-tasks"
         ]
       },
       {
-        "group": "Integrations",
-        "icon": "plug",
+        "group": "Workspaces",
+        "icon": "building",
         "expanded": true,
         "pages": [
-          "integrations/quickstart",
-          "integrations/authentication",
-          "integrations/connectors/crm",
-          "integrations/webhooks/configure"
+          "workspaces/overview",
+          "workspaces/teams",
+          "workspaces/channels",
+          "workspaces/members"
+        ]
+      },
+      {
+        "group": "Agents",
+        "icon": "bot",
+        "expanded": true,
+        "pages": [
+          "agents/overview",
+          "agents/adding-an-agent",
+          "agents/connecting",
+          "agents/api-keys-and-scopes",
+          "agents/private-vs-public"
+        ]
+      },
+      {
+        "group": "Memory",
+        "icon": "brain",
+        "expanded": true,
+        "pages": [
+          "memory/overview",
+          "memory/capturing-memory",
+          "memory/searching-memory",
+          "memory/isolation"
+        ]
+      },
+      {
+        "group": "Tasks",
+        "icon": "list-checks",
+        "expanded": true,
+        "pages": [
+          "tasks/overview",
+          "tasks/creating-tasks",
+          "tasks/statuses-and-priority",
+          "tasks/relations-and-conflicts"
+        ]
+      },
+      {
+        "group": "Settings & billing",
+        "icon": "settings",
+        "expanded": true,
+        "pages": [
+          "settings/profile",
+          "settings/notifications",
+          "settings/security-and-sessions",
+          "settings/workspace-settings",
+          "settings/members-and-roles",
+          "settings/plans",
+          "settings/billing",
+          "settings/usage-and-quotas"
+        ]
+      },
+      {
+        "group": "Troubleshooting",
+        "icon": "life-buoy",
+        "expanded": true,
+        "pages": [
+          "troubleshooting/sign-in",
+          "troubleshooting/install-and-download",
+          "troubleshooting/agent-connection",
+          "troubleshooting/realtime-and-network",
+          "troubleshooting/plan-limits",
+          "troubleshooting/contact-support"
         ]
       }
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png"
   },
   "navbar": {
     "links": [],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Open Reload",
+      "href": "https://app.reload.chat"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/yourcompany",
-      "linkedin": "https://linkedin.com/company/yourcompany"
+      "x": "https://x.com/reload"
     }
   }
 }

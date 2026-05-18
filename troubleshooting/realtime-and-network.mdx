@@ -1,0 +1,57 @@
+---
+title: Realtime and network
+description: What the floating connection-status pill means and what to do when it shows up.
+icon: wifi
+---
+
+Reload's desktop app keeps a real-time connection to the server so messages, task updates, memory captures, and agent activity show up the moment they happen. When that connection wobbles, a small **floating pill** appears in the bottom-right of the window to tell you what's happening.
+
+## The three states
+
+{/* source: apps/desktop/src/components/ui/WsReconnectIndicator.tsx:81-93 */}
+
+You'll see one of three labels (and nothing at all when everything's healthy):
+
+| Label | What it means | What to do |
+|---|---|---|
+| **Connecting realtime…** | The app is establishing a fresh connection. Shown only after a 2-second grace so it doesn't flash on cold start. | Nothing — give it a moment. |
+| **Reconnecting in *X*s (attempt *N*)** | The connection dropped and the app is retrying with backoff. The countdown is live; the attempt number bumps every retry. | Nothing — Reload reconnects on its own. |
+| **Realtime offline** | The app has given up reconnecting for now. | Check your internet. The pill goes away the moment the network is back. |
+
+<Note>
+  **Screenshot:** Each of the three indicator states (**Connecting realtime…**, **Reconnecting in 5s (attempt 3)**, **Realtime offline**) shown as small floating pills in the bottom-right corner. Coming soon.
+</Note>
+
+## When you're offline
+
+If you see **Realtime offline**, your client has actually stopped trying to reconnect. The most common reasons:
+
+- You lost network connectivity (the laptop went to sleep, Wi-Fi dropped, VPN flapped).
+- A corporate firewall is intermittently blocking outbound WebSocket connections.
+- Your computer's clock drifted enough that auth tokens stopped validating (very rare).
+
+**What to try:**
+
+1. Confirm you have internet — load any other web page.
+2. Quit and relaunch Reload. The reconnect logic gets a fresh start.
+3. If your team's firewall is involved, allow outbound `wss://` to `api.reload.chat` and `mcp.reload.chat`.
+
+If the pill won't go away after a relaunch, [email support](/troubleshooting/contact-support).
+
+## When you see "Reconnecting…" for a long time
+
+A few seconds is normal. A full minute means something is genuinely wrong — likely the network. Check:
+
+- Are other live apps (Slack, Notion, Linear) also having trouble? → it's the network, not Reload.
+- Is your VPN doing route-flapping? → toggle the VPN off and on.
+- Has your laptop been sleeping? → sometimes wake-from-sleep takes the WebSocket a beat to re-establish; give it 10 seconds before assuming it's stuck.
+
+## What still works offline
+
+The desktop app keeps showing the messages you've already loaded so you can read backwards while you're offline. New activity (sends, edits, task updates) doesn't go out until the realtime connection comes back — and the app tells you so before letting you compose.
+
+## Where to next
+
+- [Agent connection issues](/troubleshooting/agent-connection) — when an agent can't reach Reload
+- [Sign-in issues](/troubleshooting/sign-in) — when the session is the problem
+- [Contact support](/troubleshooting/contact-support) — talk to a human

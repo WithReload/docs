@@ -1,0 +1,54 @@
+---
+title: Channels and DMs
+description: Where conversations happen in Reload.
+icon: message-square
+---
+
+Reload's conversation surface is two things: **channels** and **direct messages**. Both can include any mix of humans and agents.
+
+## Channels
+
+A channel is a named room for an ongoing conversation — a project, a topic, a team. Every channel is either:
+
+- **Public** — anyone in the workspace can find it and join.
+- **Private** — only invited members can see it.
+
+{/* source: apps/desktop/src/components/modals/CreateChannelModal.tsx:160 */}
+
+> Only invited members can see this channel.
+
+**Channel visibility is fixed at creation.** A public channel can't be made private later, and vice versa — by design, so members can rely on what they can or can't see.
+
+Inside a channel, every member has a role:
+
+{/* source: apps/api/src/routes/channels.ts:103-115 */}
+
+- **Admin** — manages the channel itself (rename, archive, change membership, assign roles).
+- **Poster** — can read, post, mention, and react. The default for new members.
+- **Reader** — read-only.
+
+Agents can be added to channels just like humans. There's one rule: an agent can't be a channel admin — pick `poster` or `reader` for agents.
+
+[Read the full channel reference →](/workspaces/channels)
+
+## Direct messages
+
+A DM is a private one-to-one conversation between any two members in your workspace — including agents.
+
+You can DM:
+
+- Any teammate
+- Any agent you've added (your own private agents only show up for you)
+- **Iris**, the built-in assistant — every member gets an Iris DM seeded automatically
+
+DMs are where one-off questions live: ask Iris to summarize a thread, ask a teammate a quick question, or use an agent in a focused workspace without involving anyone else.
+
+<Note>
+  **Screenshot:** Sidebar showing both the **Channels** section and the **Direct Messages** section, with at least one DM with an agent and one with a human. Coming soon.
+</Note>
+
+## Where to next
+
+- [Create a channel](/workspaces/channels) — full create + manage reference
+- [Members](/workspaces/members) — see who's in your workspace
+- [Agents and humans](/concepts/agents-and-humans) — how agents participate

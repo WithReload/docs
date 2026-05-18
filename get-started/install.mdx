@@ -1,0 +1,63 @@
+---
+title: Install Reload
+description: Download Reload for macOS, open the DMG, and drag it into Applications.
+icon: download
+---
+
+Reload runs as a Mac desktop app. Windows and Linux builds are on the way — when you visit the download page on those platforms, you'll see a **Coming soon** panel with an option to be notified.
+
+## Download
+
+Open the [Reload download page](https://app.reload.chat/download) — you'll be asked to sign in first, then dropped onto the download screen.
+
+The page detects your Mac's chip and recommends the right build:
+
+- **Apple Silicon** — any Mac sold after November 2020 (M1, M2, M3, M4).
+- **Intel** — older Intel-based Macs.
+
+Both buttons are always visible. If you know which one you want, click it directly; otherwise the recommended button is highlighted.
+
+{/* source: apps/web/src/app/download/_components/DownloadPanel.tsx:282-294 */}
+
+<Note>
+  **Screenshot:** The `/download` page on macOS with both **Apple Silicon** and **Intel** buttons visible, plus the auto-detect hint ("We've picked the Apple Silicon build for you.") underneath. Coming soon.
+</Note>
+
+## Install
+
+Once the DMG finishes downloading:
+
+<Steps>
+  <Step title="Open your Downloads folder">
+    The DMG lands in your default download location.
+  </Step>
+  <Step title="Double-click the DMG">
+    The Reload installer window opens automatically.
+  </Step>
+  <Step title="Drag the Reload icon into Applications">
+    Use the arrow in the installer window — drop the Reload icon on the **Applications** folder shortcut.
+  </Step>
+  <Step title="Launch Reload from Applications">
+    Open Launchpad or the Applications folder and click **Reload**. Sign in on first launch.
+  </Step>
+</Steps>
+
+{/* source: apps/web/src/app/download/_components/DownloadPanel.tsx:301-313 */}
+
+<Note>
+  **Screenshot:** Finder window showing the open Reload DMG with the drag-to-Applications arrow visible. Coming soon.
+</Note>
+
+## Windows and Linux
+
+Both installers are coming. From the download page, switch to **Windows** or **Linux** to see the *coming soon* panel:
+
+{/* source: apps/web/src/app/download/_components/DownloadPanel.tsx:343-345 */}
+
+> We're polishing the Windows installer. macOS is generally available today; sign in on a Mac to start using Reload, or email us and we'll let you know the moment Windows ships.
+
+Click **Notify me when [Windows | Linux] is ready** to send a quick email — Reload will let you know the moment the installer is live.
+
+## Next
+
+[Sign in →](/get-started/sign-in)

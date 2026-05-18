@@ -1,0 +1,50 @@
+---
+title: Notifications
+description: Desktop notifications, sound, and Do Not Disturb.
+icon: bell
+---
+
+The **Notifications** tab controls when and how Reload pages your desktop.
+
+## Desktop notifications
+
+{/* source: apps/desktop/src/components/settings/sections/NotificationsSection.tsx:69-83 */}
+
+- **Desktop notifications** *(toggle)* — show native OS banners when a message needs your attention. On by default.
+
+## Notify me for
+
+Pick how aggressively Reload notifies you:
+
+{/* source: apps/desktop/src/components/settings/sections/NotificationsSection.tsx:29-33, 85-90 */}
+
+- **All messages** — every new message in every channel you're in.
+- **Mentions + DMs only** — only when you're `@mentioned` or someone DMs you.
+- **Nothing** — silence everything from Reload.
+
+## Sound
+
+- **Sound** *(toggle)* — play a chime alongside the banner. On by default.
+- **Notification sound** — pick the chime: `Default`, `Chime`, `Bell`, or `None`.
+
+## Do Not Disturb
+
+{/* source: apps/desktop/src/components/settings/sections/NotificationsSection.tsx:113-135 */}
+
+- **Start** and **End** time pickers — silence notifications between these hours.
+- The range **wraps midnight automatically** — set `22:00` → `08:00` and Reload will be quiet from 10pm to 8am the next morning.
+
+Leave either field empty to disable DnD.
+
+<Note>
+  **Screenshot:** Notifications tab with desktop notifications on, sound on, and a Do Not Disturb time range set. Coming soon.
+</Note>
+
+## Per-channel mute
+
+The Notifications tab is workspace-wide. To mute a single noisy channel (without touching your global settings), open that channel's **Channel settings** panel and toggle notifications under **Notifications**. See [Channels](/workspaces/channels#channel-settings-right-side-panel) for the full panel reference.
+
+## Where to next
+
+- [Channels](/workspaces/channels) — per-channel mute lives here
+- [Profile](/settings/profile) — your display name and handle

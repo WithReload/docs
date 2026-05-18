@@ -1,0 +1,64 @@
+---
+title: Usage and quotas
+description: Track how much of your plan you've used — seats, agents, channels, history, and message activity over 90 days.
+icon: gauge
+---
+
+The **Usage** tab in Settings answers two questions: *how much of my plan am I using*, and *do I need to upgrade?* Owner or admin only.
+
+## What you see
+
+{/* source: apps/desktop/src/components/settings/sections/UsageSection.tsx:325-446 */}
+
+Top to bottom:
+
+- **Header** — your plan name and a **Manage subscription** button that jumps to the Billing tab.
+- **Plan + cycle pill** — the current plan plus the visible history window (e.g. *Last 7 days: Apr 12 – Apr 19, 2026* on Starter, or *Plan history (Unlimited)* on Pro+).
+- **Upgrade banner** *(when applicable)* — only shown on capped plans (Starter, Individual). Calls out the history-window limit and offers a one-click upgrade to the next plan up.
+- **Quota cards grid** — four cards: History, Members, Agents, Channels.
+- **90-day messages sparkline** — an SVG chart of daily message counts across the trailing 90 days, with the peak labelled.
+- **Last refreshed** timestamp at the bottom.
+
+The whole page **refetches when it gains focus** — so a round-trip to Stripe or another window comes back with fresh numbers.
+
+<Note>
+  **Screenshot:** Usage tab with the plan pill, all four quota cards, and the 90-day messages sparkline visible. Coming soon.
+</Note>
+
+## The quota cards
+
+Each card shows `current / quota` plus a usage bar.
+
+| Card | What it shows |
+|---|---|
+| **History** | A plan capability, not a counter — `Last 7 days` on Starter, `Last 90 days` on Individual, `Unlimited` on Pro+. |
+| **Members** | Active humans in the workspace, against the seat cap. |
+| **Agents** | Active agents in the workspace, against the agent cap. |
+| **Channels** | Active channels in the workspace, against the channel cap. |
+
+The usage bar **turns warning at 80%** and **destructive at 100%** — quick visual cues that you're close to a cap or already at it.
+
+When a card's quota is **Unlimited** (Pro+), the bar disappears and the card reads as `X / Unlimited`.
+
+## 90-day messages sparkline
+
+The chart at the bottom shows messages sent across the trailing 90 days by everyone in the workspace — humans and agents combined. The peak value is labelled in the top-right of the chart.
+
+Messages aren't a capped resource on any plan, so this is informational rather than gated. Use it to spot quiet weeks, spikes around launches, or trends as you onboard more agents.
+
+> Messages you and your agents have sent across the visible history window. Your plan controls how far back you can read; Iris replies are always free.
+
+## When the upgrade banner shows up
+
+You'll see the upgrade banner on capped plans:
+
+- **Starter** — *"Your plan limits history to the last 7 days. Upgrade to Individual for 90-day history access."*
+- **Individual** — *"Your plan limits history to the last 90 days. Upgrade to Pro for unlimited message + context history."*
+
+Pro and Growth don't show a banner — they're already unlimited.
+
+## Where to next
+
+- [Plans](/settings/plans) — what each tier includes
+- [Billing](/settings/billing) — change plans, redeem a coupon
+- [Plan limits](/troubleshooting/plan-limits) — what the upgrade prompts mean

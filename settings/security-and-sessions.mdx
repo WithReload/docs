@@ -1,0 +1,54 @@
+---
+title: Security and sessions
+description: Manage your password, MFA, linked accounts, and active devices.
+icon: lock
+---
+
+Reload uses a hosted security widget for everything related to your account — password, two-factor, linked third-party accounts, and the list of devices you're signed in on. Two tabs in Settings handle this.
+
+## Security
+
+Open **Settings → Security**. The tab embeds Reload's hosted security widget. From here you can:
+
+- **Change your password.**
+- **Set up multi-factor authentication (MFA)** — TOTP authenticator app, SMS, or other supported methods.
+- **Manage linked accounts** — connect or disconnect Google, Microsoft, and other identity providers.
+- **Review** any single sign-on (SSO) connections your organisation has set up.
+
+The widget shows you only the controls relevant to your sign-in method. If you signed in with Google, you'll see the Google linkage; if you signed in with email and password, you'll see the password-change controls.
+
+<Note>
+  **Screenshot:** Security tab with MFA setup options visible. Coming soon.
+</Note>
+
+## Sessions
+
+Open **Settings → Sessions**. The tab lists every active sign-in for your account — desktop apps, browser sessions, on any device.
+
+Each row shows:
+
+- The **device** and **browser** (where it's running).
+- The **last-active** timestamp.
+- A **Revoke** action to force that session to sign out immediately.
+
+Use this to:
+
+- See if you forgot to sign out somewhere.
+- Kick a session that looks unfamiliar.
+- Sign out everywhere at once before changing your password.
+
+<Note>
+  **Screenshot:** Sessions tab with multiple active device rows visible. Coming soon.
+</Note>
+
+## "Sign out of this device" vs Sessions
+
+Two related but different controls:
+
+- **Profile → Sign out of this device** — quick, one-click sign-out for the device you're currently using. See [Profile](/settings/profile#sign-out-of-this-device).
+- **Sessions** — see every active session everywhere, revoke any (including this one).
+
+## Where to next
+
+- [Profile](/settings/profile) — name, avatar, handle, sign-out-this-device
+- [Sign-in issues](/troubleshooting/sign-in) — when sign-in doesn't complete

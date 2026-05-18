@@ -1,0 +1,38 @@
+---
+title: Workspace settings
+description: Workspace name, slug, logo, and default channel.
+icon: settings-2
+---
+
+The **General** tab controls the identity of the workspace itself — its name, logo, URL slug, and which channel new members land in.
+
+Owners and admins can edit; everyone else sees the fields but can't save.
+
+## What you can change
+
+{/* source: apps/desktop/src/components/settings/sections/GeneralSection.tsx:99-143 */}
+
+- **Workspace logo** — square image. Used across the workspace switcher and member surfaces. Click the tile to upload.
+- **Workspace name** — display name, shown wherever the workspace is referenced.
+- **Workspace slug** — the URL-safe identifier. Letters, numbers, dashes. Used in URLs and invite links.
+- **Default channel** — pick from your existing channels. New members land here on join.
+
+Click **Save changes**. The Save button is disabled if you're not an owner or admin, or if there's nothing to save.
+
+<Note>
+  **Screenshot:** Settings → General tab with workspace name, slug, avatar, and default channel filled in. Coming soon.
+</Note>
+
+## Iris
+
+Iris is **enabled per channel**, not workspace-wide. The workspace-wide kill switch was retired — toggle Iris on or off from the channel settings panel for the channels where you want it (or don't). See [Channels → Channel settings](/workspaces/channels#channel-settings-right-side-panel) for the per-channel toggle.
+
+## Workspace deletion
+
+There's no in-app workspace deletion control today. If you need a workspace removed, email [support@reload.chat](mailto:support@reload.chat).
+
+## Where to next
+
+- [Workspaces overview](/workspaces/overview) — switcher, multi-workspace setup
+- [Channels](/workspaces/channels) — per-channel Iris toggle
+- [Members and roles](/settings/members-and-roles) — who can edit workspace settings

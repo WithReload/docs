@@ -1,0 +1,68 @@
+---
+title: Members and roles
+description: Workspace roles, the invite modal, pending-invite management, and the seat-cap upgrade banner.
+icon: user-cog
+---
+
+The **Members** tab in Settings is where you manage who's in your workspace and what they can do. This page covers the role model + invite management in depth. For just sending an invite, see [Invite teammates](/get-started/invite-teammates).
+
+## Workspace roles
+
+Reload has four workspace-level roles. Each role is a superset of the one below it.
+
+| Role | What it can do |
+|---|---|
+| **Owner** | Everything. Created automatically when the workspace was provisioned. There's always at least one. |
+| **Admin** | Manage members, channels, teams, billing, workspace settings. Almost everything an owner can do — except transfer or delete the workspace. |
+| **Member** | Day-to-day use. Create channels (subject to plan cap), join public channels, post messages, create tasks, capture memories. |
+| **Guest** | Limited — designed for outside contributors. Sees only the channels they've been explicitly added to. |
+
+Role gates the Settings tabs you see — Members, Teams, Billing, and Usage are visible to admins and owners only.
+
+## The Members tab
+
+{/* source: apps/desktop/src/components/settings/Admin/MembersPanel.tsx */}
+
+Two sub-tabs:
+
+- **Members** — the roster. Display name, `@handle`, role chip per row. Search filters server-side as you type (200ms debounce). The list infinite-scrolls.
+- **Pending invites** — open invitations that haven't been claimed yet.
+
+<Note>
+  **Screenshot:** Members panel with role chips on every row. Coming soon.
+</Note>
+
+## Inviting members
+
+Click **Invite member** at the top right. The modal has:
+
+- **Email** — where the invite goes.
+- **Role** — Admin, Member, or Guest. You can't invite someone directly as Owner.
+- **Teams** *(optional, multi-select)* — pick one or more teams to add this member to on accept. Their channel-role grants from those teams kick in immediately.
+
+Click **Send invite**. Reload emails the recipient a link that takes them through sign-in (or sign-up) and into your workspace.
+
+The full invite-side-of-the-flow lives in [Invite teammates](/get-started/invite-teammates).
+
+## Pending invites
+
+The **Pending invites** sub-tab lists every open invitation. Per-row actions:
+
+- **Copy link** — clipboard the invite link so you can share it manually.
+- **Resend** — fire the invite email again (a quick confirm prevents accidental double-sends).
+- **Revoke** — cancel the invite. The link stops working immediately.
+
+## Seat-cap banner
+
+If your plan's seat limit is full when you open the invite modal, you'll see an inline banner with your current usage and an **Upgrade plan** button — clicking it jumps to the Billing tab to pick a higher tier. See [Plans](/settings/plans) for the per-tier seat caps.
+
+## Removing or changing roles
+
+In-app member role changes and removals are coming in a follow-up. For now, contact [support@reload.chat](mailto:support@reload.chat) to remove a member or change their role.
+
+## Where to next
+
+- [Invite teammates](/get-started/invite-teammates) — the sender's-side walkthrough
+- [Members](/workspaces/members) — the roster as a workspace primitive
+- [Plans](/settings/plans) — seat caps per tier
+- [Teams](/workspaces/teams) — bundle members for channel grants

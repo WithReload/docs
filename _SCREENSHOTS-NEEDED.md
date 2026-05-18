@@ -94,7 +94,7 @@ All screenshots should be:
 
 ## `/agents/connecting`
 
-- **agents-directory** — Agent Directory chooser screen in the wizard showing Cursor, Claude Code, Openclaw tiles.
+- **agents-directory** — Agent Directory chooser screen in the wizard showing all supported agent tiles (Claude Code, Cursor, Codex, Devin, Openclaw, Hermes).
 
 ## `/agents/api-keys-and-scopes`
 

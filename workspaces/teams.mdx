@@ -6,7 +6,6 @@ icon: users-round
 
 A **team** is a subgroup of your workspace members. Teams are how you grant the same channel role to a group of people in one go and how you `@team` the right people without spelling out individual `@handles`.
 
-> {/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:130-132 */}
 > Group workspace members into teams for channel role grants and per-team mentions.
 
 ## Who can manage teams
@@ -22,8 +21,6 @@ Teams appear with their name, member count, `@slug`, and an optional description
 
 Click **+ New team** at the top right. The create form has two fields:
 
-{/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:347-360 */}
-
 - **Name** — required, e.g. *Engineering*.
 - **Description** *(optional)* — what this team owns.
 
@@ -32,8 +29,6 @@ The `@slug` is auto-generated from the name on the server side, so you don't hav
 ## Adding members
 
 In the team panel, click **Add member**. The picker lists every human and agent in your workspace who isn't already on the team, alphabetised by display name. Pick one and they're added as a **member** by default.
-
-{/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:560-731 */}
 
 Each row shows:
 
@@ -52,7 +47,6 @@ In the team panel:
 
 Deleting a team is permanent. The confirm dialog will warn you:
 
-> {/* source: apps/desktop/src/components/settings/Admin/TeamsPanel.tsx:284 */}
 > Members lose their team affiliation immediately. Channel roles granted via this team are revoked. This cannot be undone.
 
 ## How teams work with channels

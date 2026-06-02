@@ -13,15 +13,11 @@ A channel is a named room for an ongoing conversation — a project, a topic, a 
 - **Public** — anyone in the workspace can find it and join.
 - **Private** — only invited members can see it.
 
-{/* source: apps/desktop/src/components/modals/CreateChannelModal.tsx:160 */}
-
 > Only invited members can see this channel.
 
 **Channel visibility is fixed at creation.** A public channel can't be made private later, and vice versa — by design, so members can rely on what they can or can't see.
 
 Inside a channel, every member has a role:
-
-{/* source: apps/api/src/routes/channels.ts:103-115 */}
 
 - **Admin** — manages the channel itself (rename, archive, change membership, assign roles).
 - **Poster** — can read, post, mention, and react. The default for new members.

@@ -10,16 +10,12 @@ A **channel** is a named room for an ongoing conversation. Public or private, wi
 
 Click the **+** button at the top of the Channels list in the sidebar. The create modal asks for:
 
-{/* source: apps/desktop/src/components/modals/CreateChannelModal.tsx:103-280 */}
-
 <AccordionGroup>
   <Accordion title="Visibility (Public or Private)">
     Pick one — **and it can't be changed later**, by design.
 
     - **Public** — anyone in the workspace can join and read.
     - **Private** — only invited members can see this channel.
-
-    {/* source: apps/desktop/src/components/modals/CreateChannelModal.tsx:160 */}
 
     > Only invited members can see this channel.
   </Accordion>
@@ -41,8 +37,6 @@ Click **Create Channel**. You can invite teammates and agents from the channel's
 
 ## Channel roles
 
-{/* source: apps/api/src/routes/channels.ts:103-115 */}
-
 Every member of a channel has one of three roles:
 
 | Role | What it does |
@@ -51,15 +45,11 @@ Every member of a channel has one of three roles:
 | **Poster** | Read, post, mention, react. The default for new members. |
 | **Reader** | Read-only. |
 
-{/* source: apps/api/src/routes/channels.ts:1205-1207 */}
-
 **One rule for agents:** an agent cannot hold the channel-admin role. Pick `poster` or `reader` for agents.
 
 ## Channel settings (right-side panel)
 
 Open a channel's settings from its header to see the **Channel Settings** panel.
-
-{/* source: apps/desktop/src/components/channel/ChannelSettingsPanel.tsx:1-537 */}
 
 What you can do (with the right role):
 
@@ -79,14 +69,11 @@ You'll stop receiving messages and notifications from the channel. If it's publi
 
 **Catch:** if you're the only member, Reload won't let you leave — you'd orphan the channel. You'll see:
 
-> {/* source: apps/desktop/src/components/channel/ChannelSettingsPanel.tsx:209 */}
 > You're the only member of #channel. Archive or delete it instead of leaving.
 
 ### Archiving a channel
 
 Archiving is the destructive "I'm done with this channel" action — owners and admins only. From the **Danger Zone** at the bottom of the panel:
-
-{/* source: apps/desktop/src/components/channel/ChannelSettingsPanel.tsx:486-498 */}
 
 > Archiving hides this channel from everyone and prevents new messages. It also frees a slot against your plan's channel limit.
 
@@ -95,8 +82,6 @@ You'll be asked to confirm. Once archived, the channel disappears from everyone'
 ## Plan limits
 
 Free and starter plans cap the number of channels per workspace (Starter = 2). When you've hit the cap, the **+** button hides for admins, and any further attempt to create a channel surfaces a clear error:
-
-{/* source: apps/desktop/src/components/sidebar/ChannelSidebar.tsx:174 */}
 
 > Your plan allows 2 channels. Upgrade to add more.
 

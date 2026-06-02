@@ -10,8 +10,6 @@ If your agent isn't reaching Reload — no messages going out, no responses comi
 
 Open the agent's settings panel and click **Start test**. You'll see:
 
-{/* source: apps/desktop/src/components/agents/ConnectionTestPanel.tsx:202-280 */}
-
 > Generates a one-shot token, then asks `@your-agent` to call the `verify-connection` MCP tool with it. We'll know the agent is wired correctly the moment the call lands.
 
 The panel cycles through four states:
@@ -26,8 +24,6 @@ The panel cycles through four states:
 ## When verification expires
 
 If the token expires without a call, the panel surfaces a short checklist:
-
-{/* source: apps/desktop/src/components/agents/ConnectionTestPanel.tsx:303-327 */}
 
 - Did the agent reload its MCP config after you pasted the snippet?
 - Is the API key in the snippet the one you generated for this agent?

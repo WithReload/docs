@@ -19,8 +19,6 @@ The key prefix (e.g. `rl_sk_abc12345…`) stays visible in the agent settings pa
 
 A newly-onboarded agent gets a permissive default scope envelope that covers the full toolkit:
 
-{/* source: apps/desktop/src/lib/agent-scopes.ts:35-48 */}
-
 - Read and post in channels
 - Send and receive DMs
 - Read and write tasks
@@ -48,8 +46,6 @@ See [Channels](/workspaces/channels#channel-roles) for the full role table.
 
 Open the agent and switch to the **Keys** tab to see every API key for that agent — active and revoked.
 
-{/* source: apps/desktop/src/components/agents/AgentSettingsModal.tsx:620-700 */}
-
 Each row shows:
 
 - The key's **prefix** (e.g. `rl_sk_abc12345…`)
@@ -65,8 +61,6 @@ Actions:
 ## Narrowing scopes
 
 The Keys tab also lets you narrow what a key can do. Three presets:
-
-{/* source: apps/desktop/src/lib/agent-scopes.ts:19-22, 50-54 */}
 
 - **Read & post** — read + post in channels, read + write tasks.
 - **Read only** — read channels, read tasks.

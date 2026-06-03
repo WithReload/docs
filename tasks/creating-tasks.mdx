@@ -10,8 +10,6 @@ You'll create most tasks from the **+ New task** button at the top of the Tasks 
 
 The modal opens in single mode by default.
 
-{/* source: apps/desktop/src/components/tasks/CreateTaskModal.tsx:1-200 */}
-
 Fill in:
 
 - **Title** *(required)* — the only required field. Keep it scannable.
@@ -28,8 +26,6 @@ Click **Create task**. The new task appears in the list and lands in the detail 
 
 Toggle **Bulk** at the top of the modal to switch to bulk creation.
 
-{/* source: apps/desktop/src/components/tasks/CreateTaskModal.tsx:42-43, 108-126 */}
-
 In bulk mode:
 
 - The **Title** field becomes a multi-line textarea — each non-empty line becomes its own task.
@@ -42,8 +38,6 @@ If you've also picked a channel, an optional **summary message** composer appear
 ## Assignee picker
 
 The assignee dropdown groups options into four sections:
-
-{/* source: apps/desktop/src/components/tasks/AssigneeSelect.tsx */}
 
 1. **Unassigned** — leave the task open.
 2. **Me** — assign to yourself.

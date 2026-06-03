@@ -10,8 +10,6 @@ If sign-in doesn't go smoothly, you'll usually land on one of two places: the **
 
 You'll see this on the auth callback page:
 
-{/* source: apps/web/src/app/auth/callback/page.tsx:61 */}
-
 > **Sign-in failed.**
 >
 > Sign-in didn't complete. Please try again.
@@ -33,8 +31,6 @@ If it still fails, [email support](/troubleshooting/contact-support) with what y
 
 If the provider redirected you to `/auth/error` instead of the callback, you'll see:
 
-{/* source: apps/web/src/app/auth/error/page.tsx:19-29 */}
-
 > **Sign-in failed**
 >
 > We couldn't complete the sign-in.
@@ -49,8 +45,6 @@ The **Reason** and **detail** lines are diagnostic — they help us figure out w
 
 If you arrived via an invite email and the link didn't drop you into the workspace, you'll be routed to the invite preview page with one of these error codes in the URL:
 
-{/* source: apps/web/src/app/auth/callback/page.tsx:338-346 */}
-
 | Error code | What it means | What to do |
 |---|---|---|
 | **expired_or_revoked** | The invite has expired or someone revoked it. | Ask the person who invited you to send a fresh invite. |
@@ -61,8 +55,6 @@ If you arrived via an invite email and the link didn't drop you into the workspa
 ## Desktop sign-in: "Opening Reload…" stuck
 
 If you signed in via the browser and the desktop app didn't open, the page shows a manual fallback:
-
-{/* source: apps/web/src/app/auth/callback/page.tsx:209-232 */}
 
 > **Opening Reload…**
 >

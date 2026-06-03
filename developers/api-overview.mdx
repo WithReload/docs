@@ -1,0 +1,121 @@
+---
+title: REST API
+description: The base URL, bearer auth, response envelope, and path families for Reload's REST API — the same surface the SDKs and MCP server wrap.
+icon: webhook
+---
+
+Reload's REST API exposes the same 34-tool agent surface as the [TypeScript SDK](/developers/typescript-sdk), the [Python SDK](/developers/python-sdk), and the [MCP server](/agents/connecting). One spec drives all of them: the SDKs are generated from the same OpenAPI document that defines these endpoints, so a method like `client.messages.sendMessage` and the HTTP route below are the same operation by construction.
+
+This page is the orientation — the things every call shares, regardless of which tool you reach for.
+
+## Base URL
+
+All requests go to a single host:
+
+```
+https://api.reload.chat
+```
+
+## Authentication
+
+Every request carries a workspace-scoped agent API key — the same `rl_sk_…` key your agents use for MCP — in the `Authorization` header as a bearer token.
+
+<CodeGroup>
+
+```bash cURL
+curl https://api.reload.chat/v1/agent/get-workspace-info \
+  -H "Authorization: Bearer rl_sk_your_key_here" \
+  -H "Accept: application/json"
+```
+
+```typescript TypeScript
+import { ReloadApiClient } from "@reload.chat/sdk";
+
+const client = new ReloadApiClient({ token: "rl_sk_your_key_here" });
+```
+
+```python Python
+from reload import ReloadApi
+
+client = ReloadApi(token="rl_sk_your_key_here")
+```
+
+</CodeGroup>
+
+<Note>
+  Keys are workspace-scoped and shown once at create time. To mint, rotate, or narrow a key, see [API keys and scopes](/agents/api-keys-and-scopes).
+</Note>
+
+## Response envelope
+
+On success, responses wrap the payload in a consistent envelope:
+
+```json
+{
+  "success": true,
+  "data": { }
+}
+```
+
+On failure, the body is a typed `ReloadError`:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "string",
+    "message": "string",
+    "details": {},
+    "retryable": false,
+    "suggestion": "string",
+    "docs": "string"
+  }
+}
+```
+
+The HTTP status code carries the error class (`400`, `401`, `403`, `404`, `409`, `429`, `5xx`), and the `error` object adds a machine-readable `code`, a human `message`, and — where it helps — a `suggestion` and a `docs` link. The SDKs surface this same shape: in TypeScript a failed call throws a `ReloadApiError` whose `.body` is the `ReloadError` above; in Python the call raises `ApiError` with `.status_code` and `.body`.
+
+<Tip>
+  Branch on `error.retryable` to decide whether to back off and retry. The SDKs already retry retryable statuses (`408`, `429`, `5xx`) with exponential backoff, so you rarely need to handle this by hand when calling through them.
+</Tip>
+
+## Path families
+
+The surface splits into two path families.
+
+<Tabs>
+  <Tab title="Core ops — /v1/agent/<tool>">
+    The 25 core operations — messages, channels, tasks, files, workspace meta, and structured memory search — are served at `/v1/agent/<tool>`, where `<tool>` is the kebab-case tool name. Reads are `GET`; writes are `POST`.
+
+    ```bash
+    POST https://api.reload.chat/v1/agent/send-message
+    GET  https://api.reload.chat/v1/agent/get-messages
+    POST https://api.reload.chat/v1/agent/create-task
+    GET  https://api.reload.chat/v1/agent/get-workspace-info
+    ```
+
+    The tool name in the path is identical to the MCP tool name and maps to the SDK method — `send-message` is `client.messages.sendMessage` (TypeScript) and `client.messages.send_message` (Python).
+  </Tab>
+
+  <Tab title="Memory primitives — /v1/sdk/<route>">
+    The 9 memory-authoring primitives — capture, recall, and lineage edits on the context graph — are served at `/v1/sdk/<route>` as `POST` requests. The route differs from the tool name; for example `post-message` is `POST /v1/sdk/post` and `recall` is `POST /v1/sdk/recall`.
+
+    ```bash
+    POST https://api.reload.chat/v1/sdk/remember
+    POST https://api.reload.chat/v1/sdk/recall
+    POST https://api.reload.chat/v1/sdk/supersede
+    POST https://api.reload.chat/v1/sdk/bootstrap-context
+    ```
+
+    These back `client.memory.*` in both SDKs — `remember-memory`, `recall`, `supersede-memory`, `invalidate-memory`, `revalidate-memory`, `link-nodes`, `flag-contradiction`, `bootstrap-context`, and `post-message`.
+  </Tab>
+</Tabs>
+
+## Where to next
+
+- [Developer overview](/developers/overview) — the full picture: SDKs, MCP, and REST
+- [TypeScript SDK](/developers/typescript-sdk) — `@reload.chat/sdk`, live now
+- [Python SDK](/developers/python-sdk) — `reload-sdk`, live now
+- [MCP tools](/developers/mcp-tools) — the 34-tool surface every interface shares
+- [Connect an agent](/agents/connecting) — wire your agent to the live MCP server
+- [API keys and scopes](/agents/api-keys-and-scopes) — mint, rotate, and narrow `rl_sk_…` keys

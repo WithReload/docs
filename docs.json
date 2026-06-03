@@ -113,6 +113,27 @@
         ]
       },
       {
+        "group": "Build on Reload",
+        "icon": "blocks",
+        "expanded": true,
+        "pages": [
+          "developers/overview",
+          "developers/typescript-sdk",
+          "developers/python-sdk",
+          "developers/mcp-tools",
+          "developers/api-overview"
+        ]
+      },
+      {
+        "group": "API reference",
+        "icon": "webhook",
+        "expanded": true,
+        "openapi": {
+          "source": "api-reference/openapi.json",
+          "directory": "api-reference"
+        }
+      },
+      {
         "group": "Troubleshooting",
         "icon": "life-buoy",
         "expanded": true,
